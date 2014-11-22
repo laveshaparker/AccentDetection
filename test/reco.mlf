@@ -1,0 +1,6 @@
+#!MLF!#
+"./data/test/mfcc/english_m10_security.rec"
+0 500000 sil -282.089264
+500000 6300000 english -5105.833984
+6300000 7700000 sil -647.074707
+.
