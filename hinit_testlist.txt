@@ -1,0 +1,15 @@
+data/test/mfcc/english_f9_security.mfcc
+data/test/mfcc/english_f10_security.mfcc
+data/test/mfcc/english_f11_security.mfcc
+data/test/mfcc/english_f12_security.mfcc
+data/test/mfcc/english_f13_security.mfcc
+data/test/mfcc/english_f14_security.mfcc
+data/test/mfcc/english_m9_security.mfcc
+data/test/mfcc/english_m10_security.mfcc
+data/test/mfcc/english_m11_security.mfcc
+data/test/mfcc/english_m12_security.mfcc
+data/test/mfcc/english_m13_security.mfcc
+data/test/mfcc/spanish_m6_security.mfcc
+data/test/mfcc/spanish_m7_security.mfcc
+data/test/mfcc/spanish_m8_security.mfcc
+
