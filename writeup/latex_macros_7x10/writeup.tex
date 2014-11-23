@@ -93,9 +93,114 @@ This is the introduction.
 {Hidden Markov Model\\Toolkit Software Suite}
 
 \chapter{Installation of HTK Software}
-talk about installation stuff here, I guess
-\section{Mac OSX}
+\section{General Installation information}
+The website for HTK can be found \href{http://htk.eng.cam.ac.uk/}{here}. The HTK developers require that you \href{http://htk.eng.cam.ac.uk/register.shtml}{register for a username and password} through their site before downloading their software. After registering, visit the \href{http://htk.eng.cam.ac.uk/download.shtml}{downloads} page and download the HTK source code (available as a tarball). It is also useful to download the HTKBook as a PDF (available on the downloads page below the software). If you do not wish to download the book, you can \href{http://htk.eng.cam.ac.uk/docs/docs.shtml}{view the book online} after registering.
+
+\section{Mac OS X}
+In order to install HTK for Mac OS X, you first need to make sure that you have Xcode developer tools and X11 installed.
+
+What follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped htk/ directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
+
+\subsubsection{Compiling \& Installing HTK under UNIX/Linux, OS X or Cygwin}~\\
+
+After unpacking the sources, cd to the htk directory.\\
+
+There are now two ways to install HTK, the "traditional" and the
+"new".  Up to now HTK has always installed its tools as they were
+built, and installed them to a directory such as "bin.linux" so that
+binaries for different architectures can be installed in a home
+directory say.  If you want to install in this way, please add the
+option "--enable-trad-htk" when you run configure.\\
+
+The "new" method installs by default into /usr/local/bin (equivalent
+to a configure option of "--prefix=/usr/local").\\
+
+\begin{enumerate}
+	\item decide which of the above methods you wish to use
+	\item cd to htk, then run ./configure (with appropriate options, run "./configure --help" if unsure).
+   If you don't want to build the programs in HLMTools add the
+   --disable-hlmtools option.
+	\item make all
+	\item make install
+\end{enumerate}
+
+Running "make install" will install them.  This step may need to be
+done as root, if you are not installing them in your home directory.\\
+
+Notes for particular Unix variants:\\
+Solaris: if "make" isn't installed you may need to add /opt/sfw/bin
+and /usr/ccs/bin to your path and run "./configure MAKE=gmake" with
+any other options you require.  Then run "gmake" instead of "make",
+alternatively you can create a symbolic link called "make" somewhere
+it your path to /opt/sfw/bin/gmake
+
 \section{Windows}
+% Tre and Nicolas: I remember you two had to install additional software while you tried to get HTK to work. When you get it fully installed on your machines, please list all the additional software you used
+% And also explain how/where to get it! (links like those I put in "General Installation Information" section would be useful here)
+Once again, what follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped htk/ directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
+\subsubsection{Compiling \& Installing HTK under Windows}~\\
+
+\textbf{Prerequisites:}
+\begin{itemize}
+	\item HTK has been verified to compile using Microsoft Visual Studio.
+	\item For testing, you will require a Perl interpreter such as ActivePerl. 
+	\item You will need a tool such as 7-zip or winzip (commercial) for unpacking the HTK source code archive.
+	\item It it is helpful if you have some familiarity with using the DOS command line interface, as you will need to interact with it in order to compile, install and run HTK.
+	\item Ensure that your PATH contains:
+		\begin{verbatim}
+		C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\bin
+		\end{verbatim}
+		Or if you are using older versions:
+		\begin{verbatim}
+		C:\Program Files\Microsoft Visual Studio\VC98\bin
+		\end{verbatim}
+\end{itemize}
+
+
+\textbf{Compilation:}
+\begin{enumerate}
+\item Unpack the HTK sources using 7-zip.
+\item Open a DOS command window: Click Start, select Run type cmd at the prompt and click OK.
+\item cd into the directory in which you unpacked the sources.
+\item cd into the htk directory. Type:
+\begin{verbatim}
+      cd htk
+\end{verbatim}
+\end{enumerate}
+
+   5. Create a directory for the library and tools. Type:
+
+\begin{verbatim}
+      mkdir bin.win32
+\end{verbatim}
+
+   6. Run VCVARS32 (it should be in your path, see prerequisites above)
+   7. Build the HTK Library, which provides the common functionality
+      used by the HTK Tools. Enter the following commands:
+
+\begin{verbatim}
+          cd HTKLib
+          nmake /f htk_htklib_nt.mkf all
+          cd ..
+\end{verbatim}
+
+   8. Build the HTK Tools
+\begin{verbatim}
+          cd HTKTools
+          nmake /f htk_htktools_nt.mkf all
+          cd ..
+          cd HLMLib
+          nmake /f htk_hlmlib_nt.mkf all
+          cd ..
+          cd HLMTools
+          nmake /f htk_hlmtools_nt.mkf all
+          cd ..
+\end{verbatim}
+
+\textbf{Installation:}\\
+The HTK tools have now been built and are in the bin.win32
+directory. You should add this directory to your PATH, so that you can
+run them easily from the command line in future.
 
 \chapter{Training Corpus Acquisition}
 
