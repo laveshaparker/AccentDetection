@@ -6,6 +6,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%                                             %%%%%%%%
+%%%%%%%%          The commands I        %%%%%%%%
+%%%%%%%%      remembered to keep      %%%%%%%%
+%%%%%%%%               track of                  %%%%%%%%
+%%%%%%%%                                             %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HCopy  -A  -D  -C analysis.conf  -S testlist.txt
+
+% HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 -H model/proto/hmm_security_english -l security_english -L data/train/lab security_english
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_english -l security_english -L data/train/lab security_english
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_security_english -l security_english -L data/train/lab security_english
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm2 -H model/hmm1/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm3 -H model/hmm2/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_sil -l sil -L data/train/lab sil
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm2 -H model/hmm1/hmm_sil -l sil -L data/train/lab sil
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm3 -H model/hmm2/hmm_sil -l sil -L data/train/lab sil
+
+% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_sil -l sil -L data/train/lab sil
+
+% HVite -A -D -T 1  -H hmmsdef.mmf  -i reco.mlf  -w net.slf  dict.txt  hmmlist.txt  data/test/mfcc/input.mfcc
+
 %%%%%%%%%%%%%%
 %% Run LaTeX on this file several times to get Table of Contents,
 %% cross-references, and citations.
