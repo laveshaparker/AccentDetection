@@ -1,0 +1,37 @@
+\contentsline {schapter}{Preface}{iv}{chapter*.2}
+\contentsline {schapter}{Introduction}{v}{chapter*.3}
+\contentsline {schapter}{References}{v}{section*.4}
+\contentsline {part}{I\hspace {1em}HTK Software Suite}{1}{part.1}
+\contentsline {chapter}{\numberline {1}Installation of HTK Software}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Mac OSX}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Windows}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Training Corpus Acquisition}{3}{chapter.2}
+\contentsline {chapter}{\numberline {3}Training Corpus with HTK}{4}{chapter.3}
+\contentsline {section}{\numberline {3.1}Record or Input Sound Files}{4}{section.3.1}
+\contentsline {section}{\numberline {3.2}Labeling the Sound Files}{4}{section.3.2}
+\contentsline {section}{\numberline {3.3}General Remarks}{4}{section.3.3}
+\contentsline {chapter}{\numberline {4}Coding the Data}{5}{chapter.4}
+\contentsline {section}{\numberline {4.1}Mel Frequency Cepstral Coefficients}{5}{section.4.1}
+\contentsline {section}{\numberline {4.2}Obtaining .mfcc Files}{5}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Configuration File}{5}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Command Line Actions}{5}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}The Creation of targetlist.txt}{5}{subsubsection.4.2.2.1}
+\contentsline {chapter}{\numberline {5}Setting Parameters for the Hidden Markov Model}{6}{chapter.5}
+\contentsline {section}{\numberline {5.1}What is a Hidden Markov Model?}{6}{section.5.1}
+\contentsline {section}{\numberline {5.2}HMMs and Accent Detection}{6}{section.5.2}
+\contentsline {section}{\numberline {5.3}Input Parameters to HMMs}{7}{section.5.3}
+\contentsline {section}{\numberline {5.4}Justification for our Modifications}{7}{section.5.4}
+\contentsline {section}{\numberline {5.5}Summary}{7}{section.5.5}
+\contentsline {schapter}{References}{7}{section*.5}
+\contentsline {chapter}{\numberline {6}Defining the Grammar of Your Network}{8}{chapter.6}
+\contentsline {section}{\numberline {6.1}What does that even mean}{8}{section.6.1}
+\contentsline {section}{\numberline {6.2}Define your Grammar}{8}{section.6.2}
+\contentsline {section}{\numberline {6.3}Define your Dictionary}{8}{section.6.3}
+\contentsline {section}{\numberline {6.4}Generating the Network}{8}{section.6.4}
+\contentsline {chapter}{\numberline {7}Testing with New Samples}{9}{chapter.7}
+\contentsline {part}{II\hspace {1em}Data Visualization}{10}{part.2}
+\contentsline {part}{III\hspace {1em}Error Handling and General Tips}{11}{part.3}
+\contentsline {achapter}{A\hskip 2pt \ \hskip 1em\relax Error Handling}{12}{appendix*.6}
+\contentsline {achapter}{B\hskip 2pt \ \hskip 1em\relax Software Used}{13}{appendix*.7}
+\contentsline {achapter}{C\hskip 2pt \ \hskip 1em\relax References}{14}{appendix*.8}
+\contentsline {schapter}{References}{15}{appendix*.9}

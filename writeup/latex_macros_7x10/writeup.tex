@@ -1,0 +1,264 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                                                                                                                                                                           %%%
+%%%   NOTE!!!!!!!!!!!!!!! If you get some compile error that refers to a runaway argument, just remove writeup.aux and compile again!  %%%
+%%%                                                                                                                                                                                                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%
+%% Run LaTeX on this file several times to get Table of Contents,
+%% cross-references, and citations.
+
+%%%%%%%%%%%%%
+% 7x10
+\documentclass{wileySev}
+
+\usepackage{graphicx}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=red           % color of external links
+}
+
+% For PostScript text
+\usepackage{w-bookps}
+
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{2}
+
+\newcommand{\VT}[1]{\ensuremath{{V_{T#1}}}}
+
+\newbox\sectsavebox
+\setbox\sectsavebox=\hbox{\boldmath\VT{xyz}}
+
+\begin{document}
+
+\offprintinfo{Probabilistic Accent Detection Using HMMs}{Calhoun, Parker, Vaslas, and Vera}
+
+\booktitle{Spoken Language Accent Detection}
+\subtitle{Probabilistic Accent Detection Using Hidden Markov Models}
+
+\authors{Tre Calhoun\\ %Sorry, Tre! I don't know how to use accented letters in LaTeX
+La Vesha Parker\\
+Andrew Vaslas\\
+Nicolas Vera\\
+\affil{Cornell University}
+}
+
+\titlepage
+\tableofcontents
+
+
+\begin{preface}
+All information presented within this document represents our exploration of the HTK software. We make no guarantee of things things things
+
+\end{preface}
+
+\begin{introduction}
+% Discuss our motivation, etc.
+This is the introduction.
+This is the introduction.
+This is the introduction.
+This is the introduction.
+This is the introduction.
+This is the introduction.
+
+
+% Any sources you mention from the motivation
+\begin{chapreferences}{3.}
+\bibitem{zkilby}J. S. Kilby,
+``Invention of the Integrated Circuit,'' {\it IEEE Trans. Electron Devices,}
+{\bf ED-23,} 648 (1976).
+
+\bibitem{zhamming}R. W. Hamming,
+                 {\it Numerical Methods for Scientists and 
+                 Engineers}, Chapter N-1, McGraw-Hill, 
+                 New York, 1962.
+
+\bibitem{zHu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
+               Study of Gate/Drain Offset in LDD MOSFETs''
+                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
+                     (1986).
+\end{chapreferences}
+\end{introduction}
+
+
+\part[HTK Software Suite]
+{Hidden Markov Model\\Toolkit Software Suite}
+
+\chapter{Installation of HTK Software}
+talk about installation stuff here, I guess
+\section{Mac OSX}
+\section{Windows}
+
+\chapter{Training Corpus Acquisition}
+
+\chapter{Training Corpus with HTK}
+
+\prologue{The sheer volumne of answers can often stifle insight...The purpose
+of computing\index{computing!the purpose} is insight, not numbers.}
+{Hamming \cite{hamming}}
+
+
+\section{Record or Input Sound Files}
+Here is some text.
+
+
+\section{Labeling the Sound Files}
+Here are some things you can do for a special
+section head.
+
+\section{General Remarks}
+Here is some normal text.
+Here is some normal text.
+Here is some normal text.
+
+
+
+\chapter{Coding the Data}
+
+\section{Mel Frequency Cepstral Coefficients}
+Here we describe what a MFCC is and its usefulness to us.
+
+\section{Obtaining .mfcc Files}
+
+\subsection{Configuration File}
+Screenshot of the configuration file along with justification of the various parameters
+
+\subsection{Command Line Actions}
+
+\subsubsection{The Creation of targetlist.txt}
+
+
+\chapter{Setting Parameters for the Hidden Markov Model}
+Multiple things should happen here:
+\begin{enumerate}
+\item Explain what an HMM is and what it is useful for
+\item Explain particularly why it works for what we are doing
+\item Describe the input parameters to a hidden markov model
+\item Explain why we made any changes to what the original tutorial had/any issues we encountered (i.e. errors being raised when we tried to have too many states due to not having enough training examples for all those states)
+\end{enumerate}
+
+I have some sample sections below following the list above:
+
+\section{What is a Hidden Markov Model?}
+Here is some sample text.
+
+\section{HMMs and Accent Detection}
+Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+
+\section{Input Parameters to HMMs} 
+Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+
+\section{Justification for our Modifications}
+
+\section{Summary}
+This is a summary of this chapter.
+Here are some references: \cite{xkilby}, \cite{xberen}.
+
+\begin{chapreferences}{5.}
+\bibitem{xkilby}J. S. Kilby,
+``Invention of the Integrated Circuit,'' {\it IEEE Trans. Electron Devices,}
+{\bf ED-23,} 648 (1976).
+
+
+\bibitem{xhamming}R. W. Hamming,
+                 {\it Numerical Methods for Scientists and 
+                 Engineers}, Chapter N-1, McGraw-Hill, 
+                 New York, 1962.
+
+\bibitem{xHu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
+               Study of Gate/Drain Offset in LDD MOSFETs''
+                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
+                     (1986).
+
+\bibitem{xberen}A. Berenbaum, 
+B. W. Colbry, D.R. Ditzel, R. D Freeman, and 
+K.J. O'Connor, ``A Pipelined 32b Microprocessor with 13 kb of Cache Memory,''
+{it Int. Solid State Circuit Conf., Dig. Tech. Pap.,} p. 34 (1987).
+\end{chapreferences}
+
+\chapter{Defining the Grammar of Your Network}
+\section{What does that even mean}
+\section{Define your Grammar}
+\section{Define your Dictionary}
+\section{Generating the Network}
+
+\chapter{Testing with New Samples}
+Corresponds to the Recognition chapter (Moreau ch. 7)
+
+
+\part{Data Visualization}
+% If we decide to go crazy
+
+\part{Error Handling and General Tips}
+
+\appendix{Error Handling}
+\markboth{A short guide to understanding and handling errors}{A short guide to understanding and handling errors}
+This is an appendix with a title.
+\begin{equation}
+\alpha\beta\Gamma\Delta
+\end{equation}
+
+
+
+\begin{figure}[ht]
+\caption{This is an appendix figure caption.}
+\end{figure}
+
+
+\begin{table}[ht]
+\caption{Appendix table caption}
+\centering
+\begin{tabular}{cccc}
+\hline
+Alpha&Beta&Gamma&Delta\\
+\hline
+$\alpha$&$\beta$&$\Gamma$&$\Delta$\\
+\hline
+\end{tabular}
+\end{table}
+
+\appendix{Software Used}
+Just list all software used and why we used it
+\begin{enumerate}
+\item Audacity
+\item HTK --> Maybe even list each of the things we used under HTK \& why, i.e. HLab for labeling, HParse for whatever
+\item was there anything else?
+\end{enumerate}
+
+
+\appendix{References}
+% Just contains a sample reference for HMMs on Wikipedia. 
+\begin{references}{3.}
+\bibitem{link_used_elsewhere}Random People,
+\href{http://en.wikipedia.org/wiki/Hidden_Markov_model}{``Hidden Markov Model,''}(2014).
+
+\bibitem{hamming}R. W. Hamming,
+                 {\it Numerical Methods for Scientists and 
+                 Engineers}, Chapter N-1, McGraw-Hill, 
+                 New York, 1962.
+
+\bibitem{Hu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
+               Study of Gate/Drain Offset in LDD MOSFETs''
+                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
+                     (1986).
+
+\bibitem{beren}A. Berenbaum, 
+B. W. Colbry, D.R. Ditzel, R. D Freeman, and 
+K.J. O'Connor, ``A Pipelined 32b Microprocessor with 13 kb of Cache Memory,''
+{it Int. Solid State Circuit Conf., Dig. Tech. Pap.,} p. 34 (1987).
+\end{references}
+
+
+\printindex
+
+
+\end{document}
+

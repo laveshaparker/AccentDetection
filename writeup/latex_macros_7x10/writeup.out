@@ -1,0 +1,36 @@
+\BOOKMARK [0][-]{chapter*.2}{Preface}{}% 1
+\BOOKMARK [0][-]{chapter*.3}{Introduction}{}% 2
+\BOOKMARK [0][-]{section*.4}{References}{}% 3
+\BOOKMARK [-1][-]{part.1}{I HTK Software Suite}{}% 4
+\BOOKMARK [0][-]{chapter.1}{Installation of HTK Software}{part.1}% 5
+\BOOKMARK [1][-]{section.1.1}{Mac OSX}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.2}{Windows}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{Training Corpus Acquisition}{part.1}% 8
+\BOOKMARK [0][-]{chapter.3}{Training Corpus with HTK}{part.1}% 9
+\BOOKMARK [1][-]{section.3.1}{Record or Input Sound Files}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{Labeling the Sound Files}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.3}{General Remarks}{chapter.3}% 12
+\BOOKMARK [0][-]{chapter.4}{Coding the Data}{part.1}% 13
+\BOOKMARK [1][-]{section.4.1}{Mel Frequency Cepstral Coefficients}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.2}{Obtaining .mfcc Files}{chapter.4}% 15
+\BOOKMARK [2][-]{subsection.4.2.1}{Configuration File}{section.4.2}% 16
+\BOOKMARK [2][-]{subsection.4.2.2}{Command Line Actions}{section.4.2}% 17
+\BOOKMARK [0][-]{chapter.5}{Setting Parameters for the Hidden Markov Model}{part.1}% 18
+\BOOKMARK [1][-]{section.5.1}{What is a Hidden Markov Model?}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.2}{HMMs and Accent Detection}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.3}{Input Parameters to HMMs}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.4}{Justification for our Modifications}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.5}{Summary}{chapter.5}% 23
+\BOOKMARK [0][-]{section*.5}{References}{part.1}% 24
+\BOOKMARK [0][-]{chapter.6}{Defining the Grammar of Your Network}{part.1}% 25
+\BOOKMARK [1][-]{section.6.1}{What does that even mean}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.2}{Define your Grammar}{chapter.6}% 27
+\BOOKMARK [1][-]{section.6.3}{Define your Dictionary}{chapter.6}% 28
+\BOOKMARK [1][-]{section.6.4}{Generating the Network}{chapter.6}% 29
+\BOOKMARK [0][-]{chapter.7}{Testing with New Samples}{part.1}% 30
+\BOOKMARK [-1][-]{part.2}{II Data Visualization}{}% 31
+\BOOKMARK [-1][-]{part.3}{III Error Handling and General Tips}{}% 32
+\BOOKMARK [0][-]{appendix*.6}{A Error Handling}{part.3}% 33
+\BOOKMARK [0][-]{appendix*.7}{B Software Used}{part.3}% 34
+\BOOKMARK [0][-]{appendix*.8}{C References}{part.3}% 35
+\BOOKMARK [0][-]{appendix*.9}{References}{part.3}% 36
