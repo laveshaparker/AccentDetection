@@ -17,12 +17,18 @@
 \usepackage{graphicx}
 
 \usepackage{hyperref}
+\usepackage{color}% http://ctan.org/pkg/{hyperref,xcolor}
+
+\definecolor{greenish}{RGB}{64, 177, 98}
+\definecolor{orangish}{RGB}{253, 178, 71}
+\definecolor{dark_greenish}{RGB}{10, 100, 37}
+\definecolor{bluish}{RGB}{39, 64, 112}
+
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=blue,          % color of internal links (change box color with linkbordercolor)
-    citecolor=green,        % color of links to bibliography
-    filecolor=magenta,      % color of file links
-    urlcolor=red           % color of external links
+    linkcolor=bluish,          % color of internal links (change box color with linkbordercolor)
+    citecolor=orangish,        % color of links to bibliography
+    urlcolor=dark_greenish           % color of external links
 }
 
 % For PostScript text
@@ -70,22 +76,6 @@ This is the introduction.
 This is the introduction.
 
 
-% Any sources you mention from the motivation
-\begin{chapreferences}{3.}
-\bibitem{zkilby}J. S. Kilby,
-``Invention of the Integrated Circuit,'' {\it IEEE Trans. Electron Devices,}
-{\bf ED-23,} 648 (1976).
-
-\bibitem{zhamming}R. W. Hamming,
-                 {\it Numerical Methods for Scientists and 
-                 Engineers}, Chapter N-1, McGraw-Hill, 
-                 New York, 1962.
-
-\bibitem{zHu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
-               Study of Gate/Drain Offset in LDD MOSFETs''
-                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
-                     (1986).
-\end{chapreferences}
 \end{introduction}
 
 
@@ -202,6 +192,8 @@ The HTK tools have now been built and are in the bin.win32
 directory. You should add this directory to your PATH, so that you can
 run them easily from the command line in future.
 
+\section{Command Line Actions}
+
 \chapter{Training Corpus Acquisition}
 
 \chapter{Training Corpus with HTK}
@@ -236,10 +228,9 @@ Here we describe what a MFCC is and its usefulness to us.
 \subsection{Configuration File}
 Screenshot of the configuration file along with justification of the various parameters
 
-\subsection{Command Line Actions}
-
 \subsubsection{The Creation of targetlist.txt}
 
+\section{Command Line Actions}
 
 \chapter{Setting Parameters for the Hidden Markov Model}
 Multiple things should happen here:
@@ -263,41 +254,19 @@ Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
 
 \section{Justification for our Modifications}
 
-\section{Summary}
-This is a summary of this chapter.
-Here are some references: \cite{xkilby}, \cite{xberen}.
+\section{Command Line Actions}
 
-\begin{chapreferences}{5.}
-\bibitem{xkilby}J. S. Kilby,
-``Invention of the Integrated Circuit,'' {\it IEEE Trans. Electron Devices,}
-{\bf ED-23,} 648 (1976).
-
-
-\bibitem{xhamming}R. W. Hamming,
-                 {\it Numerical Methods for Scientists and 
-                 Engineers}, Chapter N-1, McGraw-Hill, 
-                 New York, 1962.
-
-\bibitem{xHu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
-               Study of Gate/Drain Offset in LDD MOSFETs''
-                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
-                     (1986).
-
-\bibitem{xberen}A. Berenbaum, 
-B. W. Colbry, D.R. Ditzel, R. D Freeman, and 
-K.J. O'Connor, ``A Pipelined 32b Microprocessor with 13 kb of Cache Memory,''
-{it Int. Solid State Circuit Conf., Dig. Tech. Pap.,} p. 34 (1987).
-\end{chapreferences}
 
 \chapter{Defining the Grammar of Your Network}
 \section{What does that even mean}
 \section{Define your Grammar}
 \section{Define your Dictionary}
 \section{Generating the Network}
+\section{Command Line Actions}
 
 \chapter{Testing with New Samples}
 Corresponds to the Recognition chapter (Moreau ch. 7)
-
+\section{Command Line Actions}
 
 \part{Data Visualization}
 % If we decide to go crazy
@@ -306,29 +275,12 @@ Corresponds to the Recognition chapter (Moreau ch. 7)
 
 \appendix{Error Handling}
 \markboth{A short guide to understanding and handling errors}{A short guide to understanding and handling errors}
-This is an appendix with a title.
-\begin{equation}
-\alpha\beta\Gamma\Delta
-\end{equation}
+Errors that crop up when using HTK can seem confusing initially, but they can be debugged with a bit of critical thinking and some hints from outside sources. We found the following sources helpful when debugging:
+\begin{itemize}
+\item \href{http://www.ling.ohio-state.edu/~bromberg/htk_problems.html}{Ohio State University: Understanding HTK Error Messages}
+\item \href{http://www.ee.columbia.edu/~dpwe/LabROSA/doc/HTKBook21/node256.html}{Columbia University: Summary of Errors by Tool and Module}
+\end{itemize}
 
-
-
-\begin{figure}[ht]
-\caption{This is an appendix figure caption.}
-\end{figure}
-
-
-\begin{table}[ht]
-\caption{Appendix table caption}
-\centering
-\begin{tabular}{cccc}
-\hline
-Alpha&Beta&Gamma&Delta\\
-\hline
-$\alpha$&$\beta$&$\Gamma$&$\Delta$\\
-\hline
-\end{tabular}
-\end{table}
 
 \appendix{Software Used}
 Just list all software used and why we used it
@@ -344,6 +296,13 @@ Just list all software used and why we used it
 \begin{references}{3.}
 \bibitem{link_used_elsewhere}Random People,
 \href{http://en.wikipedia.org/wiki/Hidden_Markov_model}{``Hidden Markov Model,''}(2014).
+
+% Vesha note for self: fix these
+\bibitem{link_used_elsewhere}Random People,
+\href{http://www.labunix.uqam.ca/~boukadoum_m/DIC9315/Notes/Markov/HTK_basic_tutorial.pdf}{`HTK Basic Tutorial'}(2014).
+
+\bibitem{link_used_elsewhere}Random People,
+\href{http://www.voxforge.org/home/dev/acousticmodels/linux/create/htkjulius/tutorial/data-prep/step-5}{`HCopy Config File'}(2014).
 
 \bibitem{hamming}R. W. Hamming,
                  {\it Numerical Methods for Scientists and 
