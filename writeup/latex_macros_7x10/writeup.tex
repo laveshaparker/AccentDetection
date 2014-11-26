@@ -76,6 +76,15 @@
 \newbox\sectsavebox
 \setbox\sectsavebox=\hbox{\boldmath\VT{xyz}}
 
+\usepackage{multicol}
+\newenvironment{myitemize}{%
+\begin{itemize}
+\begin{multicols}{2}
+}{%
+\end{multicols}
+\end{itemize}
+}
+
 \begin{document}
 
 \offprintinfo{Probabilistic Accent Detection Using HMMs}{Calhoun, Parker, Vaslas, and Vera}
@@ -225,9 +234,35 @@ The HTK tools have now been built and are in the bin.win32
 directory. You should add this directory to your PATH, so that you can
 run them easily from the command line in future.
 
-\section{Command Line Actions}
+\chapter{Training and Testing Corpus Acquisition}
+\prologue{Everyone has the right to life, liberty and security of person.}
+{United Nations' Declaration of Human Rights \cite{UNDHR}}
+\section{The Nature of Our Data}
+\section{The Online Speech/Corpora Archive and Analysis Resource}
+Northwestern University's Online Speech/Corpora Archive and Analysis Resource (\href{https://oscaar.ci.northwestern.edu/}{OSCAAR}) is a collection of speech recordings from speakers with different backgrounds, assembled from various datasets.
 
-\chapter{Training Corpus Acquisition}
+To request access to the data available through OSCAAR, you can \href{https://oscaar.ci.northwestern.edu/requests.php}{submit a request for access} to the OSCAAR collections. In our experience, requests are handled within 24-48 hours after being sent.
+
+The dataset that we found most appropriate for our goal of accent detection and classification is the \href{http://groups.linguistics.northwestern.edu/speech_comm_group/allsstar/}{ALLSTAR} dataset from the Speech and Communication Research Group at Northwestern University. The dataset is massive, and we found that a subset of samples fit our needs well.
+
+Part of the dataset features recording of talkers from different backgrounds saying 20 sentences pulled from the Declaration of Human Rights in English. For our proof of concept, we used a subset of that portion of speakers reading Article 3 from the DHR: "Everyone has the right to life liberty and security of person." That subset of the data featured 
+talkers with the following native tongues:
+\begin{myitemize}
+\item Brazilian Portuguese
+\item English
+\item French
+\item German
+\item Hebrew
+\item Hindi
+\item Japanese
+\item Korean
+\item Mandarin Chinese
+\item Persian (Farsi)
+\item Russian
+\item Spanish
+\item Turkish
+\item Vietnamese
+\end{myitemize}
 
 \chapter{Training Corpus with HTK}
 
@@ -314,12 +349,14 @@ Errors that crop up when using HTK can seem confusing initially, but they can be
 \item \href{http://www.ee.columbia.edu/~dpwe/LabROSA/doc/HTKBook21/node256.html}{Columbia University: Summary of Errors by Tool and Module}
 \end{itemize}
 
+During our time with the HTK software, we experienced a subset of the error codes that we could experience. If you encounter theses error codes yourself, there is no guarantee that our error resolutions will also work for you, but hopefully they will help with debugging seeing 
+
 
 \appendix{Software Used}
 Just list all software used and why we used it
 \begin{enumerate}
-\item Audacity
-\item HTK --> Maybe even list each of the things we used under HTK \& why, i.e. HLab for labeling, HParse for whatever
+\item Audacity: Useful for processing audio files. Used to splice .wav files to extract specific words from .wav files.
+\item HTK: Maybe even list each of the things we used under HTK \& why, i.e. HLab for labeling, HParse for whatever
 \item was there anything else?
 \end{enumerate}
 
@@ -337,20 +374,10 @@ Just list all software used and why we used it
 \bibitem{link_used_elsewhere}Random People,
 \href{http://www.voxforge.org/home/dev/acousticmodels/linux/create/htkjulius/tutorial/data-prep/step-5}{`HCopy Config File'}(2014).
 
-\bibitem{hamming}R. W. Hamming,
-                 {\it Numerical Methods for Scientists and 
-                 Engineers}, Chapter N-1, McGraw-Hill, 
-                 New York, 1962.
+                 
+\bibitem{UNDHR}UN General Assembly,
+		{\it Universal Declaration of Human Rights}, 10 December 1948, 217 A (III), available at: http://www.refworld.org/docid/3ae6b3712c.html 
 
-\bibitem{Hu}J. Lee, K. Mayaram, and C. Hu, ``A Theoretical
-               Study of Gate/Drain Offset in LDD MOSFETs''
-                     {\it IEEE Electron Device Lett.,} {\bf EDL-7}(3). 152 
-                     (1986).
-
-\bibitem{beren}A. Berenbaum, 
-B. W. Colbry, D.R. Ditzel, R. D Freeman, and 
-K.J. O'Connor, ``A Pipelined 32b Microprocessor with 13 kb of Cache Memory,''
-{it Int. Solid State Circuit Conf., Dig. Tech. Pap.,} p. 34 (1987).
 \end{references}
 
 
