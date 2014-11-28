@@ -266,25 +266,22 @@ talkers with the following native tongues:
 
 \chapter{Training Corpus with HTK}
 
-\prologue{The sheer volumne of answers can often stifle insight...The purpose
-of computing\index{computing!the purpose} is insight, not numbers.}
-{Hamming \cite{hamming}}
 
 
 \section{Record or Input Sound Files}
-Here is some text.
+Having acquired the sound clips from OSCAAR, we needed to select two distinct native tongues. Native English and native Spanish speakers were selected since these subsets had what we felt was a sufficient amount of data for the purposes of this project; some of the others only had a few samples and having more data is conducive to the training of the HMM.
 
+Some of our data was set aside for testing. In data/train/ and data/test/, the .wav audio clips themselves are stored in wav/ and their respective .mfcc and .lab files were stored in mfcc/ and lab/. The free audio editor Audacity was used to crop the .wav files so that only the word "security" could be heard. Audacity allowed us to generate silent audio surrounding the cropped clips.
 
 \section{Labeling the Sound Files}
-Here are some things you can do for a special
-section head.
+HLab allowed us to label the boundaries between words and the silence around them in each .wav file. With a beginning silence, the spoken word, and the ending silence labeled, a .lab file for each clip was created. The .lab files are merely text files marking the start and end sample times for each of these labeled sections:
 
-\section{General Remarks}
-Here is some normal text.
-Here is some normal text.
-Here is some normal text.
-
-
+\begin{verbatim}
+data/train/lab/english_f1_security.lab
+20408 4239909 sil
+4342857 9941497 security_english
+9982766 13996825 sil
+\end{verbatim}
 
 \chapter{Coding the Data}
 
@@ -292,13 +289,40 @@ Here is some normal text.
 Here we describe what a MFCC is and its usefulness to us.
 
 \section{Obtaining .mfcc Files}
+HLab also produces a .sig signal file upon opening the audio clip. Once saved, these files were converted into .mfcc files using HCopy. The .sig files themselves cannot be analyzed. The .mfcc files, which each contain a set of vector representations of the sound signal, can be analyzed. Each 25ms segment is represented by a vector of acoustical coefficients, which provides a description of that segment's spectral properties. HCopy required a configuration file to give values to its parameters:
 
 \subsection{Configuration File}
-Screenshot of the configuration file along with justification of the various parameters
+\begin{verbatim}
+#analysis.conf
+SOURCEFORMAT = WAV    # Gives the format of the speech files
+TARGETKIND = MFCC_0_D_A    # Identifier of the coefficients to use
 
-\subsubsection{The Creation of targetlist.txt}
+# Unit = 0.1 micro-second :
+WINDOWSIZE = 250000.0    # = 25 ms = length of a time frame
+TARGETRATE = 100000.0    # = 10 ms = frame periodicity
+
+NUMCEPS = 12     # Number of MFCC coeffs (here from c1 to c12)
+USEHAMMING = T    # Use of Hamming function for windowing frames
+PREEMCOEF = 0.97     # Pre-emphasis coefficient
+NUMCHANS = 26     # Number of filterbank channels
+CEPLIFTER = 22     # Length of cepstral liftering
+\end{verbatim}
+
+\subsection{The Creation of targetlist.txt}
+
+The file trainlist.txt gives the name and directory of each waveform file and their respective target coefficient files:
+\begin{verbatim}
+data/train/wav/english_f1_security.wav data/train/mfcc/english_f1_security.mfcc
+data/train/wav/english_f2_security.wav data/train/mfcc/english_f2_security.mfcc
+
+(and so on)
+\end{verbatim}
 
 \section{Command Line Actions}
+To execute this conversion, the following command was used:
+\begin{verbatim}
+HCopy -A -D -C analysis.conf -S trainlist.txt
+\end{verbatim}
 
 \chapter{Setting Parameters for the Hidden Markov Model}
 Multiple things should happen here:
@@ -339,7 +363,7 @@ Corresponds to the Recognition chapter (Moreau ch. 7)
 \part{Data Visualization}
 % If we decide to go crazy
 
-\part{Error Handling and General Tips}
+\part{Error Handling, Software Used and Resources}
 
 \appendix{Error Handling}
 \markboth{A short guide to understanding and handling errors}{A short guide to understanding and handling errors}
@@ -353,11 +377,51 @@ During our time with the HTK software, we experienced a subset of the error code
 
 
 \appendix{Software Used}
-Just list all software used and why we used it
+We have provided information about our use of various software (particularly the various toolkits available through the HTK software) throughout this guide, so we will merely provide a summary of what 
 \begin{enumerate}
-\item Audacity: Useful for processing audio files. Used to splice .wav files to extract specific words from .wav files.
-\item HTK: Maybe even list each of the things we used under HTK \& why, i.e. HLab for labeling, HParse for whatever
-\item was there anything else?
+	\item Audacity: Useful for processing audio files. Used to splice .wav files to extract specific words from .wav files. Also useful for generating segments of silence to make differentiating between SIL labels and spoken words easier.
+	\item HTK: Maybe even list each of the things we used under HTK \& why, i.e. HSLab for labeling, HParse for whatever
+		\begin{enumerate}
+			\item \textbf{HSLab}\\
+				Provides a graphical user interface for the labeling of sound files. Accepts waveform files (i.e. .sig files recorded directly in HSLab and .wav files that users can pre-record). The default expected filetype is .sig, so if you plan to use a different file type, be sure to include a configuration file (i.e. our analysis.conf) that specifies the \textsc{source format}.\\
+				
+				Sample command line invocation: 
+				\begin{verbatim}
+				HSLab -C <config_file.conf> <sound_file.ext>
+				\end{verbatim}
+			\item \textbf{HCopy}\\
+				The primary use of HCopy is to copy and manipulate speech files. Another use for HCopy (and our particular use here) is to convert waveform data to Mel Frequency Cepstral Coefficients.
+				HCopy accepts pairs of source specifications for .lab files and destination specifications for the .mfcc files that HCopy will generate for each of the .lab files.
+				
+				Sample command line invocation: 
+				\begin{verbatim}
+				HCopy -C <config_file.conf>  -S testlist.txt
+				\end{verbatim}
+			\item \textbf{Hinit}\\
+				Sample command line invocation: 
+				\begin{verbatim}
+				HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 -H model/proto/hmm_security_english -l security_english -L data/train/lab security_english
+				\end{verbatim}
+			\item \textbf{HRest}\\
+				Sample command line invocation: 
+				\begin{verbatim}
+				HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_english -l security_english -L data/train/lab security_english
+				\end{verbatim}
+			\item \textbf{HParse}\\
+				Sample command line invocation: 
+				\begin{verbatim}
+				HParse -A -T 1   def/gram.txt   net.slf
+				\end{verbatim}
+			\item \textbf{HVite}\\
+				Sample command line invocation: 
+				\begin{verbatim}
+				HVite -A -D -T 1  -H hmmsdef.mmf  -i reco.mlf  -w net.slf
+				\end{verbatim}
+		\end{enumerate}
+		Global useful flags:
+		\begin{enumerate}
+			\item f
+		\end{enumerate}
 \end{enumerate}
 
 
