@@ -1,0 +1,322 @@
+#!/bin/sh
+
+# Checks for the current location and existence of files. If
+# any  
+check_for_files() {
+    # Make sure we have all necessary files and create the ones we can, if possible
+
+    if [ ! -f "analysis.conf" ]; then
+        echo "can't find analysis.conf in the current directory. Creating. it.";
+        make_AnalysisConf
+    fi
+
+    if [ ! -f "trainlist.txt" ]; then
+        echo "can't find testlist.txt in the current directory. Creating it.";
+        make_Trainlist
+    fi 
+
+    if [! -f "hinit_trainlist.txt"]; then
+        echo "can't find hinit_trainlist.txt in the current directory. Creating it.";
+        make_HinitTrainlist
+    fi
+
+    if [ ! -f "gram.txt" ]; then
+        echo "can't find gram.txt in the current directory. Creating it.";
+        make_Gram
+    fi 
+
+    if [! -f "net.slf"]; then
+        echo "can't find net.slf in the current directory. Creating it.";
+        make_Net
+    fi
+
+    if [ ! -f "dict.txt" ]; then
+        echo "can't find dict.txt in the current directory. Creating it.";
+        make_Dict
+    fi 
+
+    if [! -f "reco.mlf"]; then
+        echo "can't find reco.mlf in the current directory. Creating it.";
+        make_Reco
+    fi
+
+    if [! -f "hmmlist.txt"]; then
+        echo "can't find hmmlist.txt in the current directory. Creating it.";
+        make_HMMList
+    fi
+
+}
+
+make_AnalysisConf() {
+    # Change SOURCEFORMAT nad TARGETKIND as necessary
+    SOURCEFORMAT = "WAV"; 
+    TARGETKIND = "MFCC_0_D_A"; 
+    if [ -n $1 ]; then
+        SOURCEFORMAT = $1;
+    fi
+    TEXT = "#
+            # Example of an acoustical analysis configuration file
+            #
+            SOURCEFORMAT = $SOURCEFORMAT    # Gives the format of the speech files
+            TARGETKIND = $TARGETKIND    # Identifier of the coefficients to use
+
+            # Unit = 0.1 micro-second :
+            WINDOWSIZE = 250000.0    # = 25 ms = length of a time frame
+            TARGETRATE = 100000.0    # = 10 ms = frame periodicity
+
+            NUMCEPS = 12     # Number of MFCC coeffs (here from c1 to c12)
+            USEHAMMING = T    # Use of Hamming function for windowing frames
+            PREEMCOEF = 0.97     # Pre-emphasis coefficient
+            NUMCHANS = 26     # Number of filterbank channels
+            CEPLIFTER = 22     # Length of cepstral liftering
+
+            # The End";
+    echo $TEXT > analysis.conf;
+}
+
+make_HinitTrainlist() {
+    TEXT = "data/train/mfcc/english_f1_security.mfcc
+            data/train/mfcc/english_f2_security.mfcc
+            data/train/mfcc/english_f3_security.mfcc
+            data/train/mfcc/english_f4_security.mfcc
+            data/train/mfcc/english_f5_security.mfcc
+            data/train/mfcc/english_f6_security.mfcc
+            data/train/mfcc/english_f7_security.mfcc
+            data/train/mfcc/english_f8_security.mfcc
+            data/train/mfcc/english_m1_security.mfcc
+            data/train/mfcc/english_m2_security.mfcc
+            data/train/mfcc/english_m3_security.mfcc
+            data/train/mfcc/english_m4_security.mfcc
+            data/train/mfcc/english_m5_security.mfcc
+            data/train/mfcc/english_m6_security.mfcc
+            data/train/mfcc/english_m7_security.mfcc
+            data/train/mfcc/english_m8_security.mfcc
+            data/train/mfcc/spanish_f1_security.mfcc
+            data/train/mfcc/spanish_f2_security.mfcc
+            data/train/mfcc/spanish_f3_security.mfcc
+            data/train/mfcc/spanish_m1_security.mfcc
+            data/train/mfcc/spanish_m2_security.mfcc
+            data/train/mfcc/spanish_m3_security.mfcc
+            data/train/mfcc/spanish_m4_security.mfcc
+            data/train/mfcc/spanish_m5_security.mfcc"
+    echo $TEXT > hinit_trainlist.txt
+}
+
+make_Trainlist() {
+    TEXT = "data/train/wav/english_f1_security.wav data/train/mfcc/english_f1_security.mfcc
+            data/train/wav/english_f2_security.wav data/train/mfcc/english_f2_security.mfcc
+            data/train/wav/english_f3_security.wav data/train/mfcc/english_f3_security.mfcc
+            data/train/wav/english_f4_security.wav data/train/mfcc/english_f4_security.mfcc
+            data/train/wav/english_f5_security.wav data/train/mfcc/english_f5_security.mfcc
+            data/train/wav/english_f6_security.wav data/train/mfcc/english_f6_security.mfcc
+            data/train/wav/english_f7_security.wav data/train/mfcc/english_f7_security.mfcc
+            data/train/wav/english_f8_security.wav data/train/mfcc/english_f8_security.mfcc
+            data/train/wav/english_m1_security.wav data/train/mfcc/english_m1_security.mfcc
+            data/train/wav/english_m2_security.wav data/train/mfcc/english_m2_security.mfcc
+            data/train/wav/english_m3_security.wav data/train/mfcc/english_m3_security.mfcc
+            data/train/wav/english_m4_security.wav data/train/mfcc/english_m4_security.mfcc
+            data/train/wav/english_m5_security.wav data/train/mfcc/english_m5_security.mfcc
+            data/train/wav/english_m6_security.wav data/train/mfcc/english_m6_security.mfcc
+            data/train/wav/english_m7_security.wav data/train/mfcc/english_m7_security.mfcc
+            data/train/wav/english_m8_security.wav data/train/mfcc/english_m8_security.mfcc
+            data/train/wav/spanish_f1_security.wav data/train/mfcc/spanish_f1_security.mfcc
+            data/train/wav/spanish_f2_security.wav data/train/mfcc/spanish_f2_security.mfcc
+            data/train/wav/spanish_f3_security.wav data/train/mfcc/spanish_f3_security.mfcc
+            data/train/wav/spanish_m1_security.wav data/train/mfcc/spanish_m1_security.mfcc
+            data/train/wav/spanish_m2_security.wav data/train/mfcc/spanish_m2_security.mfcc
+            data/train/wav/spanish_m3_security.wav data/train/mfcc/spanish_m3_security.mfcc
+            data/train/wav/spanish_m4_security.wav data/train/mfcc/spanish_m4_security.mfcc
+            data/train/wav/spanish_m5_security.wav data/train/mfcc/spanish_m5_security.mfcc"
+    echo $TEXT > hinit_trainlist.txt
+}
+
+make_Gram() {
+    TEXT = "/*
+             * Task grammar
+             */
+
+             $WORD = ENGLISH | SPANISH;
+
+             ( { START_SIL } [ $WORD ] { END_SIL } )"
+    echo $TEXT > gram.txt
+}
+
+make_Dict() {
+    TEXT = "ENGLISH    [english]  security_english
+            SPANISH    [spanish]  security_spanish
+            START_SIL  [sil]      sil
+            END_SIL    [sil]      sil"
+    echo $TEXT > dict.txt
+}
+
+make_Net() {
+    TEXT = "/VERSION=1.0
+            N=8    L=12   
+            I=0    W=END_SIL             
+            I=1    W=!NULL               
+            I=2    W=SPANISH             
+            I=3    W=ENGLISH             
+            I=4    W=START_SIL           
+            I=5    W=!NULL               
+            I=6    W=!NULL               
+            I=7    W=!NULL               
+            J=0     S=1    E=0    
+            J=1     S=5    E=0    
+            J=2     S=0    E=1    
+            J=3     S=2    E=1    
+            J=4     S=3    E=1    
+            J=5     S=5    E=2    
+            J=6     S=5    E=3    
+            J=7     S=5    E=4    
+            J=8     S=4    E=5    
+            J=9     S=7    E=5    
+            J=10    S=1    E=6    
+            J=11    S=5    E=6"
+    echo $TEXT > net.slf
+}
+
+make_Reco() {
+    TEXT = "#!MLF!#"
+    echo $TEXT > reco.mlf
+}
+
+make_HMMList() {
+    TEXT = "security_english
+            security_spanish
+            sil"
+    echo $TEXT > hmmlist.txt
+}
+
+check_for_directories() {
+    # Ensure that data/ has been downloaded.
+    if [ ! -d "data" ]; then
+      # Control will enter here if $DIRECTORY doesn't exist.
+      echo "you need a model/ directory and a model/proto directory that stores your hmm specs"
+      exit;
+    fi
+
+    # Ensure that model exists.
+    if [ ! -d "model" ]; then
+      # Control will enter here if $DIRECTORY doesn't exist.
+      echo "you need a model/ directory and a model/proto directory that stores your hmm specs"
+      exit
+    fi
+
+    # Ensure that model/hmm0 exists.
+    if [ ! -d "model/hmm0" ]; then
+      # Control will enter here if $DIRECTORY doesn't exist.
+      mkdir "model/hmm0";
+    fi
+}
+
+# Used in the HRest stage. Assures that all model/hmm<number> directories have
+# been created before use.
+check_for_hmm_folder() {
+    echo $1
+    if [ ! -d "model/hmm"$1 ]; then
+      # Control will enter here if the directory doesn't exist.
+      mkdir "model/hmm"$1;
+    fi
+}
+
+# Generate the .mfcc files for each of the sound files in the 
+# location specified by testlist.txt
+run_HCopy() {
+    HCopy  -A  -D  -C analysis.conf  -S trainlist.txt
+}
+
+# Initialize the HMM in directory model/hmm0
+run_HInit() {
+    LANGUAGE=$1; # Specify native language as first input parameter
+    HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 -H model/proto/hmm_$LANGUAGE -l $LANGUAGE -L data/train/lab $LANGUAGE
+}
+
+run_HRest() {
+    LANGUAGE=$1; # Specify native language as first input parameter
+    PREVIOUS=0;
+    CURRENT=1;
+
+    HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm$CURRENT -H model/hmm$PREVIOUS/hmm_$LANGUAGE -l $LANGUAGE -L data/train/lab $LANGUAGE
+    echo "\n\n"
+    echo "In this part, we need to train each hmm until it converges. An indicator of convergence is when"
+    echo "the number of iterations each step no longer decreases. The number of iterations per step is "
+    echo "reported on the line that reads: "
+    echo "Estimation converged at iteration <number>."
+    echo "\n\n"
+    echo "Press any key then RETURN to continue.";
+    read CONVERGENCE;
+    while [ -n "${CONVERGENCE}" ]; do
+        PREVIOUS=`expr $PREVIOUS + 1`;
+        CURRENT=`expr $CURRENT + 1`;
+        check_for_hmm_folder $CURRENT
+
+        HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm$CURRENT -H model/hmm$PREVIOUS/hmm_$LANGUAGE -l $LANGUAGE -L data/train/lab $LANGUAGE
+
+        echo "Did the hmm converge? n for no, press the RETURN key for yes.";
+        
+        read CONVERGENCE
+    done
+    FINAL=`expr $CURRENT - 1`; # The hmm before the number of iterations stopped decreasing
+    if [ -n $2 ]; then        
+        cat model/hmm$FINAL/hmm_$LANGUAGE >> hmmsdef.mmf
+    else
+        # The header can only be included in the combined hmms def file once.
+        sed '1d' model/hmm$FINAL/hmm_$LANGUAGE >> hmmsdef.mmf 
+    fi
+}
+
+# Compile the task grammar
+run_HParse() {
+    HParse -A -D -C analysis.conf -T 1   gram.txt   net.slf
+}
+
+# Test the recognizer
+run_HVite(){
+    if [ ! -f data/test/mfcc/input.mfcc ]; then
+        echo "No test file was specified as data/test/mfcc/input.mfcc, aborting."
+        exit;
+    fi
+    HVite -A -D -C analysis.conf -T 1  -H hmmsdef.mmf  -i reco.mlf  -w net.slf  dict.txt  hmmlist.txt  data/test/mfcc/input.mfcc
+}
+
+generate_HMMs() {
+    # Spanish HMM
+    run_HInit 'security_spanish'
+    run_HRest 'security_spanish'
+    # English HMM
+    run_HInit 'security_english'
+    run_HRest 'security_english' 'remove'
+    # SIL (silence) HMM
+    run_HInit 'sil'
+    run_HRest 'sil' 'remove'
+}
+
+# Clear the file for re-creation
+rm hmmsdef.mmf
+
+# First check for all necessary files & directories to avoid unnecessary errors. 
+echo "\n\nchecking for files"
+check_for_files
+
+echo "\n\n\nchecking for directories"
+check_for_directories
+
+# Creating the .mfcc files
+echo "\n\n\nCreating the .mfcc files"
+run_HCopy
+
+# Initializing the HMM
+echo "\n\n\nInitializing the HMM"
+run_HInit
+
+# Training the HMM
+echo "\n\n\nTraining the HMM"
+run_HRest
+
+# Compile the task grammar
+echo "\n\n\nCompile the task grammar"
+run_HParse
+
+# Test the recognizer
+echo "\n\n\nTest the recognizer"
+run_HVite
