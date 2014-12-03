@@ -325,29 +325,46 @@ HCopy -A -D -C analysis.conf -S trainlist.txt
 \end{verbatim}
 
 \chapter{Setting Parameters for the Hidden Markov Model}
-Multiple things should happen here:
-\begin{enumerate}
-\item Explain what an HMM is and what it is useful for
-\item Explain particularly why it works for what we are doing
-\item Describe the input parameters to a hidden markov model
-\item Explain why we made any changes to what the original tutorial had/any issues we encountered (i.e. errors being raised when we tried to have too many states due to not having enough training examples for all those states)
-\end{enumerate}
-
-I have some sample sections below following the list above:
 
 \section{What is a Hidden Markov Model?}
-Here is some sample text.
+A hidden Markov model (HMM) is a type of Markov model, which means future states depend only on the current state. Classically, the states in this model are classified as one of two types: observation and hidden states. This model states that the observation states are determined by the underlying hidden states; thus, the observations are inputs to the problem and the hidden states need to be discovered. There are two key types of probabilities that connect the states: emission probabilities, the probability of an observation state given a hidden state; and transition probabilities, the probability of a hidden state given a previous hidden state (the Markov property). Given a number of hidden states and a set of observations, we can learn the probabilities to maximize the collective probability of each observation. Given the states, the transition and emission probabilities, and a sound, we can use a HMM to determine the probability of the sound under the model.
 
 \section{HMMs and Accent Detection}
-Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
+\subsection{Overview}
+An HMM is a good model to use for accent detection because a discretized sound directly maps to the observation states as inputs to the model. These observed sounds segments are dependent on the speaker's accent, which means there must be underlying hidden states that model the likelihood of the sound segment produced given the accent (the emission probability). It is reasonable to believe that transition probabilities exist between the hidden states, as accents may dictate that certain sounds should have a high or low likelihood of following another sound. We use HMMs by defining an HMM for each of the acoustical events (English, Spanish, and silence). Then, given a sound and its correct event type, we want to train each HMM (i.e. determine the transition and emission probabilities) so that the corresponding HMM with the same event type returns a probability that is much higher than the the probabilities that the others return. Finally, given a sound, we can predict its acoustical event type using the one-vs-all methodology by calculating which HMM returns the highest probability. More details about the process are below.
+
+\subsection{HMM Definition}
+To implement an HMM, we must first define its structure. We define each HMM as a continuous density HMM with n states in total, 2 of which are non-emitting (HTK reserves the first and last states for implementation reasons). Because each observation (a 25ms segment) is represented by a vector of acoustical coefficients, our emission probability must actually be a vector of sub-emission probabilities corresponding to each acoustical coefficient. As each acoustical coefficient is a floating-point number, we describe the probability of the coefficient by using a Gaussian distribution. Gaussian distributions are defined by a mean and variance; thus, we can simply describe the overall emission of each hidden state by a vector of means and a vector of variances. (The cardinality of the mean and variance vectors is equal to the number of acoustical coefficients.) We also define a nxn transition matrix that defines the transition probabilities between hidden states. 
+
+We define "prototype" HMM description files for each of the acoustical events that contains this information; each file is equivalent, save for different names. These files are prototypes, as they describe the structure of the HMM, but the values (mean and variance vectors and transition probabilities) are relatively arbitrary, and will be corrected during initialization and training (described below). Thus, we set each mean as a vector of zeros, each variance as a vector of ones, and the transition probabilities are established so that the sum of transitioning from state i to any state is equal to 1 (except for the final, nth state, which is accepting, so all of its transition probabilities equal 0). Note that setting any index of this transition matrix to 0 means that it will always be 0, even after initialization and training. We use n=6 states, and mean and variance vector sizes of 39, as there are 39 MFCC acoustical coefficients.
+% TODO: Create and add this figure
+Figure FILL shows our prototype HMM definition for the English accent. These prototypes are saved as "hmm\_security\_english", "hmm\_security\_spanish", and "hmm\_sil" for the corresponding sound type in a model/proto directory.
+
+\subsection{Training}
+Training is the process of estimating the parameters of the HMMs by using labelled sound examples. To start, we initialize each HMM with the HTK tool HInit, which time-aligns the training data with a Viterbi algorithm. Doing this estimates initial parameters (mean and variance vectors and transition probabilities) based of off the prototype HMM description file for each initial HMM. Then we train the models by using the HTK tool HRest on each HMM until convergence. HRest uses Baum-Welch parameter re-estimation to perform one re-estimation iteration on an input HMM, producing a new HMM. Starting from the initialized HMMs, we iteratively use HRest until its change measure does not decrease (i.e. until it converges). We performed one iteration on the Silence HMM and three iterations on the English and Spanish HMMs. 
+
+This completes the training of the HMMs; we now have models such that if we input a single acoustical event (a sound of silence, a sound of "security" in an English accent, or a sound of "security" in Spanish accent), we can predict which event type it is with some accuracy. More detail about HInit and HRest can be found in the HTKBook.
 
 \section{Input Parameters to HMMs} 
+%TODO
 Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
 
-\section{Justification for our Modifications}
 
 \section{Command Line Actions}
+The following command initializes a HMM with HInit:
+\begin{verbatim}
+HInit -A -D ?T 1 -S trainlist.txt -M model/hmm0 -H model/proto/hmmfile -l label -L label_dir nameofhmm
+\end{verbatim}
+Here: hmmfile is contained in {hmm\_security\_english, hmm\_security\_spanish, hmm\_sil}; label is in {english, spanish, sil}; label\_dir is data/train/lab/; nameofhmm is in {english, spanish, sil}.
+This must be repeated for each model {english, spanish, sil}
 
+The following command performs one re-estimation iteration with HRest:
+\begin{verbatim}
+HRest -A -D -T 1 -S trainlist.txt -M model/hmmi -H vFloors -H model/hmmi-1/hmmfile -l label -L label_dir nameofhmm
+\end{verbatim}
+Here: model/hmmi refers to the output directory, which indicates the index of the current iteration i (1,2,3,...); hmmfile is contained in {hmm\_security\_english, hmm\_security\_spanish, hmm\_sil}, and its parent directory model/
+hmmi-1 indicates the index of the last iteration (0,1,2,...); label is in {english, spanish, sil}; label\_dir is data/train/lab/; nameofhmm is in {english, spanish, sil}.
+This procedure has to be repeated several times for each HMM to train.
 
 \chapter{Defining the Grammar of Your Network}
 \section{What does that even mean}
@@ -359,9 +376,6 @@ Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
 \chapter{Testing with New Samples}
 Corresponds to the Recognition chapter (Moreau ch. 7)
 \section{Command Line Actions}
-
-\part{Data Visualization}
-% If we decide to go crazy
 
 \part{Error Handling, Software Used and Resources}
 
