@@ -366,16 +366,46 @@ Here: model/hmmi refers to the output directory, which indicates the index of th
 hmmi-1 indicates the index of the last iteration (0,1,2,...); label is in {english, spanish, sil}; label\_dir is data/train/lab/; nameofhmm is in {english, spanish, sil}.
 This procedure has to be repeated several times for each HMM to train.
 
-\chapter{Defining the Grammar of Your Network}
-\section{What does that even mean}
-\section{Define your Grammar}
-\section{Define your Dictionary}
-\section{Generating the Network}
-\section{Command Line Actions}
+\chapter{Defining Your Task}
+\section{Define Your Grammar}
+Once you have created HMMs for each of the accents you'll be including in your test sample, you're ready to define the task. The first step in defining the task is creating a grammar, which contains the syntactic structure of examples to be tested. In our case, the grammar is quite simple. It consists of a start silence, the word "security", and an end silence. The word "security" can be in spoken with either a Spanish or American English accent. Thus, we define the grammar file as follows:
+\begin{verbatim}
+$WORD = ENGLISH | SPANISH;
+( { START_SIL } [ $WORD ] { END_SIL } )
+\end{verbatim}
+Essentially, this means that we have a variable called WORD that can take the value SPANISH or ENGLISH. Additionally, the brackets, {}, indicate one or more occurrences of that which they enclose, and the other brackets, [], indicate zero or one occurrence of their inner contents. Given these definitions, the syntactic structure of our sample, as indicated by the second line in our grammar file, is one or more repetitions of START\_SIL, zero or one occurrence of either SPANISH or ENGLISH, and one or more repetitions of END\_SIL.
 
-\chapter{Testing with New Samples}
-Corresponds to the Recognition chapter (Moreau ch. 7)
+\section{Define Your Dictionary}
+Now that we have defined our task grammar, we must connect the grammar to the HMMs we developed in the previous chapter. In other words, our system must be able to associate each variable (SPANISH, ENGLISH, START\_SIL, END\_SIL) with an HMM. To do this, we create another simple file called the task dictionary as follows:
+\begin{verbatim}
+YES			[yes]		yes
+NO			[no]		no
+START_SIL	[sil]		sil
+END_SIL		[sil]		sil
+\end{verbatim}
+Here, the elements in the leftmost column obviously correspond to the task grammar's variables. The elements in the rightmost column indicate the HMMs to which each of the variables corresponds. The elements in the middle column specify the symbols that will be output in the final recognition step. This middle column is optional; by default, the recognizer will output symbols corresponding to the task grammar variables' names.
+IMPORTANT NOTE: Do not forget the new line at the end of the dictionary file. Failure to include it will result in the last entry (in this case, END\_SIL) being ignored.
+\section{Generating the Network}
+Finally, you are ready to create the network, which will, in essence, serve as a finite state machine (FSM) through which you can run additional samples to generate labels. To do this, we use HParse to compile the grammar (gram.txt) into our network. We use the following command to write our network to file net.slf:
+\begin{verbatim}
+HParse  -A  -D  -T  1  gram.txt  net.slf
+\end{verbatim}
+To test that the network is valid and ready for testing, use HTK tool HSGen to generate random sentences that should conform to the syntactic regulations as specified in the grammar. The following command can be used, assuming the dictionary is defined in dict.txt:
+\begin{verbatim}
+HSGen  -A  -D  -n  10  -s  net.slf  dict.txt
+\end{verbatim}
+This should output 10 (as specified by the argument passed to -n) sentences. Check these to ensure they are in accordance with your grammar rules.
+
+\chapter{Recognition}
+\section{Procedure}
+Once you've generated a valid network that includes your trained HMMs, you are ready to classify new sound samples into accent bins. If you did not set aside MFCC samples for testing, you must once again transform an input signal file into MFCCs using HCopy (as you did with the training data). Then, we use an implementation of the Viterbi Algorithm to pass the input through the network and generate a label.
 \section{Command Line Actions}
+The tool used to run the new test sample (MFCC file) through the network is HVite. Use the following command to test file input.mfcc:
+\begin{verbatim}
+HVite -A -D -T 1 -H hmmsdef.mmf -i reco.mlf -w net.slf dict.txt hmmlist.txt input.mfcc
+\end{verbatim}
+Here, input.mfcc is the input data we'd like to label, hmmlist.txt lists the names of the models to use (separated by new line characters), dict.txt is the task dictionary, net.slf is the task network, reco.mlf is the output recognition file and hmmsdef.mmf is a single file containing a concatenation of the HMMs to be used. If, instead of creating this file, you'd prefer to list each HMM separately, you can do so by replacing hmmsdef.mmf with -H hmm\_security\_english -H hmm\_security\_spanish ....
+The output file (reco.mlf) lists the word "hypotheses" made by the network for each recognized segment of the input file, along with the start points and end points of each.
 
 \part{Error Handling, Software Used and Resources}
 

@@ -1,0 +1,39 @@
+\BOOKMARK [0][-]{chapter*.2}{Preface}{}% 1
+\BOOKMARK [0][-]{chapter*.3}{Introduction}{}% 2
+\BOOKMARK [-1][-]{part.1}{I HTK Software Suite}{}% 3
+\BOOKMARK [0][-]{chapter.1}{Installation of HTK Software}{part.1}% 4
+\BOOKMARK [1][-]{section.1.1}{General Installation information}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.2}{Mac OS X}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.3}{Windows}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{Training and Testing Corpus Acquisition}{part.1}% 8
+\BOOKMARK [1][-]{section.2.1}{The Nature of Our Data}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.2}{The Online Speech/Corpora Archive and Analysis Resource}{chapter.2}% 10
+\BOOKMARK [0][-]{chapter.3}{Training Corpus with HTK}{part.1}% 11
+\BOOKMARK [1][-]{section.3.1}{Record or Input Sound Files}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.2}{Labeling the Sound Files}{chapter.3}% 13
+\BOOKMARK [0][-]{chapter.4}{Coding the Data}{part.1}% 14
+\BOOKMARK [1][-]{section.4.1}{Mel Frequency Cepstral Coefficients}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Obtaining .mfcc Files}{chapter.4}% 16
+\BOOKMARK [2][-]{subsection.4.2.1}{Configuration File}{section.4.2}% 17
+\BOOKMARK [2][-]{subsection.4.2.2}{The Creation of targetlist.txt}{section.4.2}% 18
+\BOOKMARK [1][-]{section.4.3}{Command Line Actions}{chapter.4}% 19
+\BOOKMARK [0][-]{chapter.5}{Setting Parameters for the Hidden Markov Model}{part.1}% 20
+\BOOKMARK [1][-]{section.5.1}{What is a Hidden Markov Model?}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.2}{HMMs and Accent Detection}{chapter.5}% 22
+\BOOKMARK [2][-]{subsection.5.2.1}{Overview}{section.5.2}% 23
+\BOOKMARK [2][-]{subsection.5.2.2}{HMM Definition}{section.5.2}% 24
+\BOOKMARK [2][-]{subsection.5.2.3}{Training}{section.5.2}% 25
+\BOOKMARK [1][-]{section.5.3}{Input Parameters to HMMs}{chapter.5}% 26
+\BOOKMARK [1][-]{section.5.4}{Command Line Actions}{chapter.5}% 27
+\BOOKMARK [0][-]{chapter.6}{Defining Your Task}{part.1}% 28
+\BOOKMARK [1][-]{section.6.1}{Define Your Grammar}{chapter.6}% 29
+\BOOKMARK [1][-]{section.6.2}{Define Your Dictionary}{chapter.6}% 30
+\BOOKMARK [1][-]{section.6.3}{Generating the Network}{chapter.6}% 31
+\BOOKMARK [0][-]{chapter.7}{Recognition}{part.1}% 32
+\BOOKMARK [1][-]{section.7.1}{Procedure}{chapter.7}% 33
+\BOOKMARK [1][-]{section.7.2}{Command Line Actions}{chapter.7}% 34
+\BOOKMARK [-1][-]{part.2}{II Error Handling, Software Used and Resources}{}% 35
+\BOOKMARK [0][-]{appendix*.4}{A Error Handling}{part.2}% 36
+\BOOKMARK [0][-]{appendix*.5}{B Software Used}{part.2}% 37
+\BOOKMARK [0][-]{appendix*.6}{C References}{part.2}% 38
+\BOOKMARK [0][-]{appendix*.7}{References}{part.2}% 39
