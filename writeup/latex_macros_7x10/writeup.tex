@@ -1,44 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                                                                                                                                                                                                           %%%
-%%%   NOTE!!!!!!!!!!!!!!! If you get some compile error that refers to a runaway argument, just remove writeup.aux and compile again!  %%%
-%%%                                                                                                                                                                                                            %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%                                             %%%%%%%%
-%%%%%%%%          The commands I        %%%%%%%%
-%%%%%%%%      remembered to keep      %%%%%%%%
-%%%%%%%%               track of                  %%%%%%%%
-%%%%%%%%                                             %%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% HCopy  -A  -D  -C analysis.conf  -S testlist.txt
-
-% HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 -H model/proto/hmm_security_english -l security_english -L data/train/lab security_english
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_english -l security_english -L data/train/lab security_english
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_security_english -l security_english -L data/train/lab security_english
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm2 -H model/hmm1/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm3 -H model/hmm2/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_security_spanish -l security_spanish -L data/train/lab security_spanish
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_sil -l sil -L data/train/lab sil
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm2 -H model/hmm1/hmm_sil -l sil -L data/train/lab sil
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm3 -H model/hmm2/hmm_sil -l sil -L data/train/lab sil
-
-% HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm4 -H model/hmm3/hmm_sil -l sil -L data/train/lab sil
-
-% HVite -A -D -T 1  -H hmmsdef.mmf  -i reco.mlf  -w net.slf  dict.txt  hmmlist.txt  data/test/mfcc/input.mfcc
-
 %%%%%%%%%%%%%%
 %% Run LaTeX on this file several times to get Table of Contents,
 %% cross-references, and citations.
@@ -84,7 +43,7 @@
 \end{multicols}
 \end{itemize}
 }
-
+\usepackage{parskip}
 \begin{document}
 
 \offprintinfo{Probabilistic Accent Detection Using HMMs}{Calhoun, Parker, Vaslas, and Vera}
@@ -102,74 +61,61 @@ Nicolas Vera\\
 \titlepage
 \tableofcontents
 
-
-\begin{preface}
-All information presented within this document represents our exploration of the HTK software. We make no guarantee of things things things
-
-\end{preface}
-
 \begin{introduction}
-% Discuss our motivation, etc.
-This is the introduction.
-This is the introduction.
-This is the introduction.
-This is the introduction.
-This is the introduction.
-This is the introduction.
+Various accents pose a problem to automated speech recognition software. If accents can be more easily detected, different spoken language models can be applied to speech recognition software to make for a more correct interpretation of spoken language.
 
+In this tutorial, we describe our exploration of Cambridge University's Hidden Markov Model Toolkit as a tool to use for spoken accent prediction. We explore the classification of the pronunciation of the word "security" as spoken by native English and native Spanish speakers.
 
+We provide additional data in \texttt{data\_general/} for those who wish to explore additional accent classifications.
 \end{introduction}
 
-
 \part[HTK Software Suite]
-{Hidden Markov Model\\Toolkit Software Suite}
+{The Hidden Markov Model\\Toolkit Software Suite}
 
 \chapter{Installation of HTK Software}
 \section{General Installation information}
-The website for HTK can be found \href{http://htk.eng.cam.ac.uk/}{here}. The HTK developers require that you \href{http://htk.eng.cam.ac.uk/register.shtml}{register for a username and password} through their site before downloading their software. After registering, visit the \href{http://htk.eng.cam.ac.uk/download.shtml}{downloads} page and download the HTK source code (available as a tarball). It is also useful to download the HTKBook as a PDF (available on the downloads page below the software). If you do not wish to download the book, you can \href{http://htk.eng.cam.ac.uk/docs/docs.shtml}{view the book online} after registering.
+The website for HTK can be found \href{http://htk.eng.cam.ac.uk/}{here}. The HTK developers require that you \href{http://htk.eng.cam.ac.uk/register.shtml}{register for a username and password} through their site before downloading their software. After registering, visit the \href{http://htk.eng.cam.ac.uk/download.shtml}{downloads} page and download the HTK source code (available as a tarball). It is also useful to download the HTKBook as a PDF (available on the downloads page, below the software). If you do not wish to download the book, you can \href{http://htk.eng.cam.ac.uk/docs/docs.shtml}{view the book online} after registering.
 
 \section{Mac OS X}
 In order to install HTK for Mac OS X, you first need to make sure that you have Xcode developer tools and X11 installed.
 
-What follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped htk/ directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
+What follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped \texttt{htk/} directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
 
 \subsubsection{Compiling \& Installing HTK under UNIX/Linux, OS X or Cygwin}~\\
 
-After unpacking the sources, cd to the htk directory.\\
+After unpacking the sources, cd to the \texttt{htk/} directory.\\
 
 There are now two ways to install HTK, the "traditional" and the
 "new".  Up to now HTK has always installed its tools as they were
-built, and installed them to a directory such as "bin.linux" so that
+built, and installed them to a directory such as "\texttt{bin.linux}" so that
 binaries for different architectures can be installed in a home
 directory say.  If you want to install in this way, please add the
-option "--enable-trad-htk" when you run configure.\\
+option "\texttt{--enable-trad-htk}" when you run \texttt{configure}.\\
 
-The "new" method installs by default into /usr/local/bin (equivalent
-to a configure option of "--prefix=/usr/local").\\
+The "new" method installs by default into \texttt{/usr/local/bin} (equivalent
+to a configure option of "\texttt{--prefix=/usr/local}").\\
 
 \begin{enumerate}
 	\item decide which of the above methods you wish to use
-	\item cd to htk, then run ./configure (with appropriate options, run "./configure --help" if unsure).
+	\item \texttt{cd} to htk, then run \texttt{./configure} (with appropriate options, run "\texttt{./configure --help}" if unsure).
    If you don't want to build the programs in HLMTools add the
    --disable-hlmtools option.
-	\item make all
-	\item make install
+	\item \texttt{make all}
+	\item \texttt{make install}
 \end{enumerate}
 
-Running "make install" will install them.  This step may need to be
+Running "\texttt{make install}" will install them.  This step may need to be
 done as root, if you are not installing them in your home directory.\\
 
 Notes for particular Unix variants:\\
-Solaris: if "make" isn't installed you may need to add /opt/sfw/bin
-and /usr/ccs/bin to your path and run "./configure MAKE=gmake" with
-any other options you require.  Then run "gmake" instead of "make",
-alternatively you can create a symbolic link called "make" somewhere
-it your path to /opt/sfw/bin/gmake
+Solaris: if "\texttt{make}" isn't installed you may need to add \texttt{/opt/sfw/bin}
+and \texttt{/usr/ccs/bin} to your path and run "\texttt{./configure MAKE=gmake}" with
+any other options you require.  Then run "\texttt{gmake}" instead of "\texttt{make}",
+alternatively you can create a symbolic link called "\texttt{make}" somewhere
+it your path to \texttt{/opt/sfw/bin/gmake}
 
 \section{Windows}
-% Tre and Nicolas: I remember you two had to install additional software while you tried to get HTK to work. When you get it fully installed on your machines, please list all the additional software you used
-% And also explain how/where to get it! (links like those I put in "General Installation Information" section would be useful here)
-Once again, what follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped htk/ directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
+Once again, what follows are the installation instructions taken \textit{directly from the README in the root directory of the unziped \texttt{htk/ }directory}, save a bit of formatting. We do not claim this work, and repeat it here only for convenience.\\
 \subsubsection{Compiling \& Installing HTK under Windows}~\\
 
 \textbf{Prerequisites:}
@@ -192,22 +138,19 @@ Once again, what follows are the installation instructions taken \textit{directl
 \textbf{Compilation:}
 \begin{enumerate}
 \item Unpack the HTK sources using 7-zip.
-\item Open a DOS command window: Click Start, select Run type cmd at the prompt and click OK.
-\item cd into the directory in which you unpacked the sources.
-\item cd into the htk directory. Type:
+\item Open a DOS command window: Click Start, select Run type \texttt{cmd} at the prompt and click OK.
+\item \texttt{cd} into the directory in which you unpacked the sources.
+\item \texttt{cd} into the \texttt{htk/} directory. Type:
 \begin{verbatim}
       cd htk
 \end{verbatim}
-\end{enumerate}
-
-   5. Create a directory for the library and tools. Type:
+\item Create a directory for the library and tools. Type:
 
 \begin{verbatim}
       mkdir bin.win32
 \end{verbatim}
-
-   6. Run VCVARS32 (it should be in your path, see prerequisites above)
-   7. Build the HTK Library, which provides the common functionality
+\item Run \texttt{VCVARS32} (it should be in your path, see prerequisites above)
+\item Build the HTK Library, which provides the common functionality
       used by the HTK Tools. Enter the following commands:
 
 \begin{verbatim}
@@ -216,7 +159,7 @@ Once again, what follows are the installation instructions taken \textit{directl
           cd ..
 \end{verbatim}
 
-   8. Build the HTK Tools
+\item Build the HTK Tools
 \begin{verbatim}
           cd HTKTools
           nmake /f htk_htktools_nt.mkf all
@@ -228,20 +171,20 @@ Once again, what follows are the installation instructions taken \textit{directl
           nmake /f htk_hlmtools_nt.mkf all
           cd ..
 \end{verbatim}
+\end{enumerate}
 
 \textbf{Installation:}\\
-The HTK tools have now been built and are in the bin.win32
-directory. You should add this directory to your PATH, so that you can
+The HTK tools have now been built and are in the \texttt{bin.win32}
+directory. You should add this directory to your \texttt{PATH}, so that you can
 run them easily from the command line in future.
 
 \chapter{Training and Testing Corpus Acquisition}
 \prologue{Everyone has the right to life, liberty and security of person.}
 {United Nations' Declaration of Human Rights \cite{UNDHR}}
-\section{The Nature of Our Data}
-\section{The Online Speech/Corpora Archive and Analysis Resource}
+\section{The Online Speech/Corpora Archive and Analysis Resource (OSCAAR)}
 Northwestern University's Online Speech/Corpora Archive and Analysis Resource (\href{https://oscaar.ci.northwestern.edu/}{OSCAAR}) is a collection of speech recordings from speakers with different backgrounds, assembled from various datasets.
 
-To request access to the data available through OSCAAR, you can \href{https://oscaar.ci.northwestern.edu/requests.php}{submit a request for access} to the OSCAAR collections. In our experience, requests are handled within 24-48 hours after being sent.
+To request access to the data available through OSCAAR, you can \href{https://oscaar.ci.northwestern.edu/requests.php}{submit a request for access} to the OSCAAR collections. In our experience, requests are handled about 24 -- 48 hours after being sent.
 
 The dataset that we found most appropriate for our goal of accent detection and classification is the \href{http://groups.linguistics.northwestern.edu/speech_comm_group/allsstar/}{ALLSTAR} dataset from the Speech and Communication Research Group at Northwestern University. The dataset is massive, and we found that a subset of samples fit our needs well.
 
@@ -264,17 +207,18 @@ talkers with the following native tongues:
 \item Vietnamese
 \end{myitemize}
 
+We use the Spanish and English samples, but make all of them available in \texttt{data\_general/}.
+
 \chapter{Training Corpus with HTK}
-
-
-
 \section{Record or Input Sound Files}
+It is possible to record one's own audio for this classification using HSLab. For those like us who already have a dataset and will not use the recording features of HSLab, you can use a configuration file to change the anticipated input format to the program.
+
 Having acquired the sound clips from OSCAAR, we needed to select two distinct native tongues. Native English and native Spanish speakers were selected since these subsets had what we felt was a sufficient amount of data for the purposes of this project; some of the others only had a few samples and having more data is conducive to the training of the HMM.
 
-Some of our data was set aside for testing. In data/train/ and data/test/, the .wav audio clips themselves are stored in wav/ and their respective .mfcc and .lab files were stored in mfcc/ and lab/. The free audio editor Audacity was used to crop the .wav files so that only the word "security" could be heard. Audacity allowed us to generate silent audio surrounding the cropped clips.
+About $\frac{1}{4}^{th}$ of our data was set aside for testing. In \texttt{data/train/} and \texttt{data/test/}, the \texttt{.wav} audio clips themselves are stored in \texttt{wav/} and their respective \texttt{.mfcc} and \texttt{.lab} files were stored in \texttt{mfcc/} and \texttt{lab/}. The free audio editor Audacity was used to crop the \texttt{.wav} files so that only the word "security" could be heard. Audacity allowed us to generate silent audio surrounding the cropped clips for easier labelling.
 
 \section{Labeling the Sound Files}
-HLab allowed us to label the boundaries between words and the silence around them in each .wav file. With a beginning silence, the spoken word, and the ending silence labeled, a .lab file for each clip was created. The .lab files are merely text files marking the start and end sample times for each of these labeled sections:
+HSLab allowed us to label the boundaries between words and the silence around them in each \texttt{.wav} file. With a beginning silence, the spoken word, and the ending silence labeled, a \texttt{.lab} file for each clip was created. The \texttt{.lab} files are plain text files marking the start and end sample times for each of these labeled sections:
 
 \begin{verbatim}
 data/train/lab/english_f1_security.lab
@@ -288,8 +232,8 @@ data/train/lab/english_f1_security.lab
 \section{Mel Frequency Cepstral Coefficients}
 Here we describe what a MFCC is and its usefulness to us.
 
-\section{Obtaining .mfcc Files}
-HLab also produces a .sig signal file upon opening the audio clip. Once saved, these files were converted into .mfcc files using HCopy. The .sig files themselves cannot be analyzed. The .mfcc files, which each contain a set of vector representations of the sound signal, can be analyzed. Each 25ms segment is represented by a vector of acoustical coefficients, which provides a description of that segment's spectral properties. HCopy required a configuration file to give values to its parameters:
+\section{Obtaining \texttt{.mfcc} Files}
+The .wav files themselves cannot be analyzed using HTK, so we used HCopy to convert the original \texttt{.wav} files into \texttt{.mfcc} files. The \texttt{.mfcc files}, which each contain a set of vector representations of the sound signal, can be analyzed. Each 25ms segment is represented by a vector of acoustical coefficients, which provides a description of that segment's spectral properties. HCopy requires a configuration file to specify its parameters:
 
 \subsection{Configuration File}
 \begin{verbatim}
@@ -308,18 +252,20 @@ NUMCHANS = 26     # Number of filterbank channels
 CEPLIFTER = 22     # Length of cepstral liftering
 \end{verbatim}
 
-\subsection{The Creation of targetlist.txt}
+\subsection{The Creation of \texttt{targetlist.txt}}
 
-The file trainlist.txt gives the name and directory of each waveform file and their respective target coefficient files:
+The file \texttt{trainlist.txt} gives the name and directory of each waveform file and their respective target coefficient files:
 \begin{verbatim}
 data/train/wav/english_f1_security.wav data/train/mfcc/english_f1_security.mfcc
 data/train/wav/english_f2_security.wav data/train/mfcc/english_f2_security.mfcc
-
+\end{verbatim}
+$\vdots$
+\begin{verbatim}
 (and so on)
 \end{verbatim}
 
 \section{Command Line Actions}
-To execute this conversion, the following command was used:
+Use the following command to execute this conversion:
 \begin{verbatim}
 HCopy -A -D -C analysis.conf -S trainlist.txt
 \end{verbatim}
@@ -327,44 +273,106 @@ HCopy -A -D -C analysis.conf -S trainlist.txt
 \chapter{Setting Parameters for the Hidden Markov Model}
 
 \section{What is a Hidden Markov Model?}
-A hidden Markov model (HMM) is a type of Markov model, which means future states depend only on the current state. Classically, the states in this model are classified as one of two types: observation and hidden states. This model states that the observation states are determined by the underlying hidden states; thus, the observations are inputs to the problem and the hidden states need to be discovered. There are two key types of probabilities that connect the states: emission probabilities, the probability of an observation state given a hidden state; and transition probabilities, the probability of a hidden state given a previous hidden state (the Markov property). Given a number of hidden states and a set of observations, we can learn the probabilities to maximize the collective probability of each observation. Given the states, the transition and emission probabilities, and a sound, we can use a HMM to determine the probability of the sound under the model.
+A hidden Markov model (HMM) is a type of Markov model, which means future states depend only on the current state. Classically, the states in this model are classified as one of two types: observed and hidden. This model states that the observed states are determined by the underlying hidden states; thus, the observations are inputs to the problem and the hidden states need to be discovered. There are two key types of probabilities that connect the states: emission probabilities, the probability of an observation state given a hidden state; and transition probabilities, the probability of a hidden state given a previous hidden state (the Markov property). Given a number of hidden states and a set of observations, we can learn the probabilities to maximize the collective probability of each observation. Given the states, the transition and emission probabilities, and a sound, we can use a HMM to determine the probability of the sound under the model.
 
 \section{HMMs and Accent Detection}
 \subsection{Overview}
-An HMM is a good model to use for accent detection because a discretized sound directly maps to the observation states as inputs to the model. These observed sounds segments are dependent on the speaker's accent, which means there must be underlying hidden states that model the likelihood of the sound segment produced given the accent (the emission probability). It is reasonable to believe that transition probabilities exist between the hidden states, as accents may dictate that certain sounds should have a high or low likelihood of following another sound. We use HMMs by defining an HMM for each of the acoustical events (English, Spanish, and silence). Then, given a sound and its correct event type, we want to train each HMM (i.e. determine the transition and emission probabilities) so that the corresponding HMM with the same event type returns a probability that is much higher than the the probabilities that the others return. Finally, given a sound, we can predict its acoustical event type using the one-vs-all methodology by calculating which HMM returns the highest probability. More details about the process are below.
+A hidden Markov model is a good model to use for accent detection because a discretized sound directly maps to the observation states as inputs to the model. These observed sounds segments are dependent on the speaker's accent, which means there must be underlying hidden states that model the likelihood of the sound segment produced given the accent (the emission probability). It is reasonable to believe that transition probabilities exist between the hidden states, as accents may dictate that certain sounds should have a high or low likelihood of following another sound. We use HMMs by defining an HMM for each of the acoustical events (English, Spanish, and silence). Then, given a sound and its correct event type, we want to train each HMM (i.e. determine the transition and emission probabilities) so that the corresponding HMM with the same event type returns a probability that is much higher than the the probabilities that the others return. Finally, given a sound, we can predict its acoustical event type using the one-vs-all methodology by calculating which HMM returns the highest probability. More details about the process are below.
 
 \subsection{HMM Definition}
-To implement an HMM, we must first define its structure. We define each HMM as a continuous density HMM with n states in total, 2 of which are non-emitting (HTK reserves the first and last states for implementation reasons). Because each observation (a 25ms segment) is represented by a vector of acoustical coefficients, our emission probability must actually be a vector of sub-emission probabilities corresponding to each acoustical coefficient. As each acoustical coefficient is a floating-point number, we describe the probability of the coefficient by using a Gaussian distribution. Gaussian distributions are defined by a mean and variance; thus, we can simply describe the overall emission of each hidden state by a vector of means and a vector of variances. (The cardinality of the mean and variance vectors is equal to the number of acoustical coefficients.) We also define a nxn transition matrix that defines the transition probabilities between hidden states. 
+To implement an HMM, we must first define its structure. We define each HMM as a continuous density HMM with $n$ states in total, 2 of which are non-emitting (HTK reserves the first and last states due to its internal implementation). Due to the fact that each observation (a 25ms segment) is represented by a vector of acoustical coefficients, our emission probability must actually be a vector of sub-emission probabilities corresponding to each acoustical coefficient. As each acoustical coefficient is a floating-point number, we describe the probability of the coefficient by using a Gaussian distribution. Gaussian distributions are defined by a mean and variance; thus, we can simply describe the overall emission of each hidden state by a vector of means and a vector of variances. (The cardinality of the mean and variance vectors is equal to the number of acoustical coefficients.) We also define a $n\times n$ transition matrix that defines the transition probabilities between hidden states. 
 
-We define "prototype" HMM description files for each of the acoustical events that contains this information; each file is equivalent, save for different names. These files are prototypes, as they describe the structure of the HMM, but the values (mean and variance vectors and transition probabilities) are relatively arbitrary, and will be corrected during initialization and training (described below). Thus, we set each mean as a vector of zeros, each variance as a vector of ones, and the transition probabilities are established so that the sum of transitioning from state i to any state is equal to 1 (except for the final, nth state, which is accepting, so all of its transition probabilities equal 0). Note that setting any index of this transition matrix to 0 means that it will always be 0, even after initialization and training. We use n=6 states, and mean and variance vector sizes of 39, as there are 39 MFCC acoustical coefficients.
-% TODO: Create and add this figure
-Figure FILL shows our prototype HMM definition for the English accent. These prototypes are saved as "hmm\_security\_english", "hmm\_security\_spanish", and "hmm\_sil" for the corresponding sound type in a model/proto directory.
+We define "prototype" HMM description files for each of the acoustical events that contains this information; each file is equivalent, save for different names. These files are prototypes, as they describe the structure of the HMM, but the values (mean and variance vectors and transition probabilities) are relatively arbitrary, and will be corrected during initialization and training (described below). Thus, we set each mean as a vector of zeros, each variance as a vector of ones, and the transition probabilities are established so that the sum of transitioning from state $i$ to any state is equal to 1 (except for the final, nth state, which is accepting, so all of its transition probabilities equal 0). Note that setting any index of this transition matrix to 0 means that it will always be 0, even after initialization and training. We use $n=6$ states, and mean and variance vector sizes of 39, as there are 39 MFCC acoustical coefficients.
+\vskip 0.5in
+
+\begin{verbatim}
+~o <VecSize> 39 <MFCC_0_D_A>
+~h "security_english"
+<BeginHMM>
+      <NumStates> 6
+      <State> 2
+         <Mean> 39
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+         <Variance> 39
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+      <State> 3
+         <Mean> 39
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+         <Variance> 39
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+      <State> 4
+         <Mean> 39
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+         <Variance> 39
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+      <State> 5
+         <Mean> 39
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+           0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+         <Variance> 39
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+           1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0
+      <TransP> 6
+        0.0 0.5 0.5 0.0 0.0 0.0
+        0.0 0.4 0.3 0.3 0.0 0.0
+        0.0 0.0 0.4 0.3 0.3 0.0
+        0.0 0.0 0.0 0.4 0.3 0.3
+        0.0 0.0 0.0 0.0 0.5 0.5
+        0.0 0.0 0.0 0.0 0.0 0.0
+<EndHMM>
+\end{verbatim}
+The text above shows our prototype HMM definition for the English accent. These prototypes are saved as \texttt{model/proto/hmm\_security\_english}, \texttt{model/proto/}\\
+\texttt{hmm\_security\_spanish}, and \texttt{model/proto/hmm\_sil} for the corresponding sound type in a \texttt{model/proto/} directory.
 
 \subsection{Training}
 Training is the process of estimating the parameters of the HMMs by using labelled sound examples. To start, we initialize each HMM with the HTK tool HInit, which time-aligns the training data with a Viterbi algorithm. Doing this estimates initial parameters (mean and variance vectors and transition probabilities) based of off the prototype HMM description file for each initial HMM. Then we train the models by using the HTK tool HRest on each HMM until convergence. HRest uses Baum-Welch parameter re-estimation to perform one re-estimation iteration on an input HMM, producing a new HMM. Starting from the initialized HMMs, we iteratively use HRest until its change measure does not decrease (i.e. until it converges). We performed one iteration on the Silence HMM and three iterations on the English and Spanish HMMs. 
 
 This completes the training of the HMMs; we now have models such that if we input a single acoustical event (a sound of silence, a sound of "security" in an English accent, or a sound of "security" in Spanish accent), we can predict which event type it is with some accuracy. More detail about HInit and HRest can be found in the HTKBook.
 
-\section{Input Parameters to HMMs} 
-%TODO
-Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum
-
-
 \section{Command Line Actions}
-The following command initializes a HMM with HInit:
+The following command initializes an HMM with HInit:
 \begin{verbatim}
-HInit -A -D ?T 1 -S trainlist.txt -M model/hmm0 -H model/proto/hmmfile -l label -L label_dir nameofhmm
+HInit -A -D -T 1 -S trainlist.txt -M model/hmm0 
+      -H model/proto/hmmfile -l label -L label_dir nameofhmm
 \end{verbatim}
-Here: hmmfile is contained in {hmm\_security\_english, hmm\_security\_spanish, hmm\_sil}; label is in {english, spanish, sil}; label\_dir is data/train/lab/; nameofhmm is in {english, spanish, sil}.
-This must be repeated for each model {english, spanish, sil}
+Here:
+\begin{itemize}
+\item \texttt{hmmfile} is contained in \texttt{model/proto/hmm\_security\_english, model/proto/hmm\_security\_spanish} or \texttt{model/proto/hmm\_sil}
+\item \texttt{label} is "english", "spanish", or "sil"
+\item \texttt{label\_dir} is in \texttt{data/train/lab/}
+\item \texttt{nameofhmm} is "english", "spanish", or "sil"
+\end{itemize}
+This must be repeated for each model: English, Spanish, and sil.
 
 The following command performs one re-estimation iteration with HRest:
 \begin{verbatim}
-HRest -A -D -T 1 -S trainlist.txt -M model/hmmi -H vFloors -H model/hmmi-1/hmmfile -l label -L label_dir nameofhmm
+HRest -A -D -T 1 -S trainlist.txt -M model/hmmi -H vFloors 
+      -H model/hmmi-1/hmmfile -l label -L label_dir nameofhmm
 \end{verbatim}
-Here: model/hmmi refers to the output directory, which indicates the index of the current iteration i (1,2,3,...); hmmfile is contained in {hmm\_security\_english, hmm\_security\_spanish, hmm\_sil}, and its parent directory model/
-hmmi-1 indicates the index of the last iteration (0,1,2,...); label is in {english, spanish, sil}; label\_dir is data/train/lab/; nameofhmm is in {english, spanish, sil}.
-This procedure has to be repeated several times for each HMM to train.
+Here:
+\begin{itemize}
+\item \texttt{model/hmmi} refers to the output directory, where $i$ indicates the index of the current iteration ($i = (1,2,3,\dots)$)
+\item \texttt{hmmfile} is contained in \texttt{model/proto/hmm\_security\_english, model/proto/hmm\_security\_spanish} or \texttt{model/proto/hmm\_sil}
+\item \texttt{model/hmm$i-1$} indicates the index of the last iteration $(0,1,2,\dots)$
+\item \texttt{label} is "english", "spanish", or "sil"
+\item \texttt{label\_dir} is  \texttt{data/train/lab/}
+\item \texttt{nameofhmm} is "english", "spanish", or "sil"
+\end{itemize}
+This procedure has to be repeated several times for each HMM to train. We need to train each hmm until it converges. An indicator of convergence is when the number of iterations each step no longer decreases. The number of iterations per step is reported on the line that reads: "Estimation converged at iteration $<$number$>$."
 
 \chapter{Defining Your Task}
 \section{Define Your Grammar}
@@ -373,7 +381,7 @@ Once you have created HMMs for each of the accents you'll be including in your t
 $WORD = ENGLISH | SPANISH;
 ( { START_SIL } [ $WORD ] { END_SIL } )
 \end{verbatim}
-Essentially, this means that we have a variable called WORD that can take the value SPANISH or ENGLISH. Additionally, the brackets, {}, indicate one or more occurrences of that which they enclose, and the other brackets, [], indicate zero or one occurrence of their inner contents. Given these definitions, the syntactic structure of our sample, as indicated by the second line in our grammar file, is one or more repetitions of START\_SIL, zero or one occurrence of either SPANISH or ENGLISH, and one or more repetitions of END\_SIL.
+Essentially, this means that we have a variable called WORD that can take the value SPANISH or ENGLISH. Additionally, the brackets, \{\}, indicate one or more occurrences of that which they enclose, and the other brackets, [], indicate zero or one occurrence of their inner contents. Given these definitions, the syntactic structure of our sample, as indicated by the second line in our grammar file, is one or more repetitions of START\_SIL, zero or one occurrence of either SPANISH or ENGLISH, and one or more repetitions of END\_SIL.
 
 \section{Define Your Dictionary}
 Now that we have defined our task grammar, we must connect the grammar to the HMMs we developed in the previous chapter. In other words, our system must be able to associate each variable (SPANISH, ENGLISH, START\_SIL, END\_SIL) with an HMM. To do this, we create another simple file called the task dictionary as follows:
@@ -386,11 +394,11 @@ END_SIL		[sil]		sil
 Here, the elements in the leftmost column obviously correspond to the task grammar's variables. The elements in the rightmost column indicate the HMMs to which each of the variables corresponds. The elements in the middle column specify the symbols that will be output in the final recognition step. This middle column is optional; by default, the recognizer will output symbols corresponding to the task grammar variables' names.
 IMPORTANT NOTE: Do not forget the new line at the end of the dictionary file. Failure to include it will result in the last entry (in this case, END\_SIL) being ignored.
 \section{Generating the Network}
-Finally, you are ready to create the network, which will, in essence, serve as a finite state machine (FSM) through which you can run additional samples to generate labels. To do this, we use HParse to compile the grammar (gram.txt) into our network. We use the following command to write our network to file net.slf:
+Finally, you are ready to create the network, which will, in essence, serve as a finite state machine (FSM) through which you can run additional samples to generate labels. To do this, we use HParse to compile the grammar (\texttt{gram.txt}) into our network. We use the following command to write our network to file \texttt{net.slf}:
 \begin{verbatim}
 HParse  -A  -D  -T  1  gram.txt  net.slf
 \end{verbatim}
-To test that the network is valid and ready for testing, use HTK tool HSGen to generate random sentences that should conform to the syntactic regulations as specified in the grammar. The following command can be used, assuming the dictionary is defined in dict.txt:
+To test that the network is valid and ready for testing, use HTK tool HSGen to generate random sentences that should conform to the syntactic regulations as specified in the grammar. The following command can be used, assuming the dictionary is defined in \texttt{dict.txt}:
 \begin{verbatim}
 HSGen  -A  -D  -n  10  -s  net.slf  dict.txt
 \end{verbatim}
@@ -400,12 +408,13 @@ This should output 10 (as specified by the argument passed to -n) sentences. Che
 \section{Procedure}
 Once you've generated a valid network that includes your trained HMMs, you are ready to classify new sound samples into accent bins. If you did not set aside MFCC samples for testing, you must once again transform an input signal file into MFCCs using HCopy (as you did with the training data). Then, we use an implementation of the Viterbi Algorithm to pass the input through the network and generate a label.
 \section{Command Line Actions}
-The tool used to run the new test sample (MFCC file) through the network is HVite. Use the following command to test file input.mfcc:
+The tool used to run the new test sample (MFCC file) through the network is HVite. Use the following command to test file \texttt{input.mfcc}:
 \begin{verbatim}
-HVite -A -D -T 1 -H hmmsdef.mmf -i reco.mlf -w net.slf dict.txt hmmlist.txt input.mfcc
+HVite -A -D -T 1 -H hmmsdef.mmf -i reco.mlf 
+      -w net.slf dict.txt hmmlist.txt input.mfcc
 \end{verbatim}
-Here, input.mfcc is the input data we'd like to label, hmmlist.txt lists the names of the models to use (separated by new line characters), dict.txt is the task dictionary, net.slf is the task network, reco.mlf is the output recognition file and hmmsdef.mmf is a single file containing a concatenation of the HMMs to be used. If, instead of creating this file, you'd prefer to list each HMM separately, you can do so by replacing hmmsdef.mmf with -H hmm\_security\_english -H hmm\_security\_spanish ....
-The output file (reco.mlf) lists the word "hypotheses" made by the network for each recognized segment of the input file, along with the start points and end points of each.
+Here, \texttt{input.mfcc} is the input data we'd like to label, \texttt{hmmlist.txt} lists the names of the models to use (separated by new line characters), \texttt{dict.txt} is the task dictionary, \texttt{net.slf} is the task network, \texttt{reco.mlf} is the output recognition file and \texttt{hmmsdef.mmf} is a single file containing a concatenation of the HMMs to be used. If, instead of creating this file, you'd prefer to list each HMM separately, you can do so by replacing \texttt{hmmsdef.mmf} with \texttt{-H hmm\_security\_english -H hmm\_security\_spanish \ldots}
+The output file (\texttt{reco.mlf}) lists the word "hypotheses" made by the network for each recognized segment of the input file, along with the start points and end points of each.
 
 \part{Error Handling, Software Used and Resources}
 
@@ -417,8 +426,6 @@ Errors that crop up when using HTK can seem confusing initially, but they can be
 \item \href{http://www.ee.columbia.edu/~dpwe/LabROSA/doc/HTKBook21/node256.html}{Columbia University: Summary of Errors by Tool and Module}
 \end{itemize}
 
-During our time with the HTK software, we experienced a subset of the error codes that we could experience. If you encounter theses error codes yourself, there is no guarantee that our error resolutions will also work for you, but hopefully they will help with debugging seeing 
-
 
 \appendix{Software Used}
 We have provided information about our use of various software (particularly the various toolkits available through the HTK software) throughout this guide, so we will merely provide a summary of what 
@@ -427,7 +434,7 @@ We have provided information about our use of various software (particularly the
 	\item HTK: Maybe even list each of the things we used under HTK \& why, i.e. HSLab for labeling, HParse for whatever
 		\begin{enumerate}
 			\item \textbf{HSLab}\\
-				Provides a graphical user interface for the labeling of sound files. Accepts waveform files (i.e. .sig files recorded directly in HSLab and .wav files that users can pre-record). The default expected filetype is .sig, so if you plan to use a different file type, be sure to include a configuration file (i.e. our analysis.conf) that specifies the \textsc{source format}.\\
+				Provides a graphical user interface for the labeling of sound files. Accepts waveform files (i.e. .sig files recorded directly in HSLab and .wav files that users can pre-record). The default expected filetype is \texttt{.sig}, so if you plan to use a different file type, be sure to include a configuration file (i.e. our \texttt{analysis.conf}) that specifies the \textsc{source format}.\\
 				
 				Sample command line invocation: 
 				\begin{verbatim}
@@ -435,54 +442,54 @@ We have provided information about our use of various software (particularly the
 				\end{verbatim}
 			\item \textbf{HCopy}\\
 				The primary use of HCopy is to copy and manipulate speech files. Another use for HCopy (and our particular use here) is to convert waveform data to Mel Frequency Cepstral Coefficients.
-				HCopy accepts pairs of source specifications for .lab files and destination specifications for the .mfcc files that HCopy will generate for each of the .lab files.
+				HCopy accepts pairs of source specifications for \texttt{.lab} files and destination specifications for the \texttt{.mfcc} files that HCopy will generate for each of the \texttt{.lab} files.
 				
 				Sample command line invocation: 
 				\begin{verbatim}
 				HCopy -C <config_file.conf>  -S testlist.txt
 				\end{verbatim}
 			\item \textbf{Hinit}\\
+				Used to initialize each of the hidden Markov models that will be trained using HRest to model each of the accents (english, spanish) and silence (soil).
+				
 				Sample command line invocation: 
 				\begin{verbatim}
-				HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 -H model/proto/hmm_security_english -l security_english -L data/train/lab security_english
+				HInit -A -T 1 -S hinit_trainlist.txt -M model/hmm0 
+				      -H model/proto/hmm_security_english -l security_english 
+				      -L data/train/lab security_english
 				\end{verbatim}
 			\item \textbf{HRest}\\
+				Trains each HMM.
+			
 				Sample command line invocation: 
 				\begin{verbatim}
-				HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 -H model/hmm0/hmm_security_english -l security_english -L data/train/lab security_english
+				HRest -A -T 1 -S hinit_trainlist.txt -M model/hmm1 
+				      -H model/hmm0/hmm_security_english -l security_english 
+				      -L data/train/lab security_english
 				\end{verbatim}
 			\item \textbf{HParse}\\
+				Compiles the task grammar into a task network.
+				
 				Sample command line invocation: 
 				\begin{verbatim}
 				HParse -A -T 1   def/gram.txt   net.slf
 				\end{verbatim}
 			\item \textbf{HVite}\\
+				Allows you to test your trained HMMs and grammar on a new sample.
+			
 				Sample command line invocation: 
 				\begin{verbatim}
-				HVite -A -D -T 1  -H hmmsdef.mmf  -i reco.mlf  -w net.slf
+				HVite -A -D -T 1 -H hmmsdef.mmf -i reco.mlf 
+				      -w net.slf dict.txt hmmlist.txt input.mfcc
 				\end{verbatim}
-		\end{enumerate}
-		Global useful flags:
-		\begin{enumerate}
-			\item f
 		\end{enumerate}
 \end{enumerate}
 
 
 \appendix{References}
-% Just contains a sample reference for HMMs on Wikipedia. 
 \begin{references}{3.}
-\bibitem{link_used_elsewhere}Random People,
-\href{http://en.wikipedia.org/wiki/Hidden_Markov_model}{``Hidden Markov Model,''}(2014).
-
-% Vesha note for self: fix these
-\bibitem{link_used_elsewhere}Random People,
-\href{http://www.labunix.uqam.ca/~boukadoum_m/DIC9315/Notes/Markov/HTK_basic_tutorial.pdf}{`HTK Basic Tutorial'}(2014).
-
-\bibitem{link_used_elsewhere}Random People,
-\href{http://www.voxforge.org/home/dev/acousticmodels/linux/create/htkjulius/tutorial/data-prep/step-5}{`HCopy Config File'}(2014).
-
-                 
+\bibitem{link_used_elsewhere}\href{http://en.wikipedia.org/wiki/Hidden_Markov_model}{``Hidden Markov Model''}.
+\bibitem{link_used_elsewhere}\href{http://www.labunix.uqam.ca/~boukadoum_m/DIC9315/Notes/Markov/HTK_basic_tutorial.pdf}{`HTK Basic Tutorial'}.
+\bibitem{link_used_elsewhere}\href{http://www.voxforge.org/home/dev/acousticmodels/linux/create/htkjulius/tutorial/data-prep/step-5}{`HCopy Config File'}.
 \bibitem{UNDHR}UN General Assembly,
 		{\it Universal Declaration of Human Rights}, 10 December 1948, 217 A (III), available at: http://www.refworld.org/docid/3ae6b3712c.html 
 
