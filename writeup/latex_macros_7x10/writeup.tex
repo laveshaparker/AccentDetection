@@ -416,6 +416,15 @@ HVite -A -D -T 1 -H hmmsdef.mmf -i reco.mlf
 Here, \texttt{input.mfcc} is the input data we'd like to label, \texttt{hmmlist.txt} lists the names of the models to use (separated by new line characters), \texttt{dict.txt} is the task dictionary, \texttt{net.slf} is the task network, \texttt{reco.mlf} is the output recognition file and \texttt{hmmsdef.mmf} is a single file containing a concatenation of the HMMs to be used. If, instead of creating this file, you'd prefer to list each HMM separately, you can do so by replacing \texttt{hmmsdef.mmf} with \texttt{-H hmm\_security\_english -H hmm\_security\_spanish \ldots}
 The output file (\texttt{reco.mlf}) lists the word "hypotheses" made by the network for each recognized segment of the input file, along with the start points and end points of each.
 
+\part{Our Classifier: Results and Analysis}
+\chapter{Results}
+Using the FSM classifier we created using the HMMs generated above, we attempted to label 14 instances of the word "security" spoken with either a Spanish or American English accent. Out of the fourteen test cases, for which the labels were previously known, 11 were instances American English accents and 3 were instances of Spanish accents.
+
+In total, our classifier correctly labeled \textbf{13 of the 14 test examples}. It was able to achieve a 100\% accuracy on Spanish accents and a 91\% accuracy on American English accents.
+\chapter{Discussion}
+The results above demonstrate that our classifier works well for its highly specific task--that is, distinguishing a Spanish accent from an American English accent in terms of the word "security." While a greater sample size is necessary to validate the network's accuracy on Spanish accents, we believe the results on American English accents are significant enough to confirm its accuracy.
+
+In the future, we would like to extend this project to include more accents and more words. In particular, we would like to focus on more subtle dialectal differences, such as those between a Long Island accent and a Brooklyn accent. To do this, we would benefit from using multi-word phrases in our samples (rather than a single word). For this project, which was meant to be a proof of concept, such an extension was not necessary.
 \part{Error Handling, Software Used and Resources}
 
 \appendix{Error Handling}
