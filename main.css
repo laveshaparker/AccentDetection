@@ -1,0 +1,376 @@
+/*
+5. Background Images
+11. Links in tutorial
+*/
+
+@font-face {
+    font-family: Mohave;
+    src: url('fonts/Mohave.otf');
+}
+
+@font-face {
+    font-family: Lato;
+    src: url('fonts/Lato-Thin.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    color: rgb(30, 30, 30);
+    font-family: Lato, Roboto, Raleway, Verdana, Geneva, sans-serif;
+    font-weight: 100;
+}
+
+#container {
+    min-width: 1180px;
+    height: 100%;
+}
+
+h1, h2, h3 {
+    font-family: Mohave, sans-serif;
+    /*font-size: 200%;*/
+}
+
+h1 {
+    padding: 20px;
+    /*font-size: 500%;*/
+}
+
+button {
+    width: 75%;
+    min-height: 60px;
+    font-size: 200%;
+    color: white;
+    text-align: center;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    font-family: Mohave, sans-serif;
+    font-weight: 200;
+    background-color: transparent;
+}
+
+#dot-nav {
+    position: fixed;
+    right: 10px;
+    z-index: 1;
+    top: 40vh;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+    #dot-nav h3 {
+        display: none;
+    }
+
+    #dot-nav a {
+        width: 50px;
+        height: 50px;
+        background-image: url("images/appbar.moon.full.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: transparent;
+    }
+
+    #dot-nav a:hover {
+        background-image: url("images/appbar.moon.new.png");
+    }
+
+    #dot-nav .current {
+        background-image: url("images/appbar.moon.new.png");
+    }
+
+    #dot-nav ul {
+        list-style: none;
+    }
+
+    #dot-nav li {
+        margin: 5px;
+
+    }
+
+.img_background {
+    /*background-size: cover;*/
+    background-position: center;
+    background-repeat: repeat;
+    width: 100%;
+    position: relative;
+}
+
+.panel {
+    height: 100%;
+    width: 100%;
+    clear: both;
+    position: relative;
+    background-color: white;
+}
+
+    .panel.large_font {
+        padding: 30px;
+        font-size: 220%;
+    }
+
+.half.panel {
+    height: 50%;
+    background-color: rgb(255,235,205);
+}
+
+.less.panel {
+    height: 70%;
+}
+
+.more.panel {
+    min-height: 120%;
+    /*padding: 2vw;*/
+}
+
+.parallax {
+    background-attachment: fixed
+}
+
+.title_text {
+    background-color: white;
+    font-family: Mohave, sans-serif;
+    position: absolute;
+    left: 60px;
+    height: 70px;
+    min-width: 300px;
+}
+
+    .title_text.top {
+        top: 60px;
+    }
+
+    .title_text.bottom {
+        top: 160px;
+        min-width: 500px;
+    }
+
+    .title_text.center {
+        left: 25%;
+        right: 25%;
+        width: 50%;
+        text-align: center;
+        top: 40%;
+    }
+
+#overview {
+    background-image: url("images/backgrounds/diagonal_striped_brick.png");
+}
+
+#proof_of_concept {
+    background-image: url("images/backgrounds/purty_wood.png");
+}
+
+#project_introduction {
+    background-image: url("images/backgrounds/contemporary_china.png");
+}
+
+#tutorial {
+    background-image: url("images/backgrounds/shattered.png");
+}
+
+#learn_more {
+    background-image: url("images/backgrounds/worn_dots.png");
+}
+
+    .square.steps {
+        min-height: 393.3px;
+        min-width: 393.3px;
+        height: 33.3vw;
+        width: 33.3vw;
+        float: left;
+        border-color: rgb(220, 220, 220);
+        padding: 2vw;
+        overflow: scroll;
+    }
+
+        #installation.square.steps {
+            border-right-style: dotted;
+            border-bottom-style: dotted;
+        }
+
+        #acquisition.square.steps {
+            border-right-style: dotted;
+            border-bottom-style: dotted;
+        }
+
+        #training.square.steps {
+            border-bottom-style: dotted;
+        }
+
+        #coding_data.square.steps {
+            border-right-style: dotted;
+        }
+
+        #parameters.square.steps {
+            border-right-style: dotted;
+        }
+
+        .square.steps a {
+            text-decoration: none;
+            color: blue;
+        }
+            .square.steps a:hover {
+                color: red;
+            }
+
+            /*.square.steps a:visited {
+                color: green;
+                text-decoration: line-through;
+            }*/
+
+        .square.steps .number {
+            height: 35%;
+            width: 35%;
+            background-color: rgb(253, 246, 227);
+            float: left;
+            font-size: 190%;
+            text-align: center;
+        }
+
+        .square.steps p {
+            clear: both;
+        }
+
+        .square.steps .non-number {
+            height: 37%;
+            width: 65%;
+            float: right;
+        }
+
+
+
+    .non_image {
+        height: 100%;
+        width: 75%;
+        float: left;
+        padding: 30px;
+    }
+
+    .full_image {
+        height: 100%;
+        width: 23%;
+    }
+
+        .full_image.right {
+            float: right;
+        }
+
+        .full_image.left {
+            float: left;
+        }
+
+        #tutorial_thumbnail.full_image {
+            background-image: url("images/tutorial_thumbnail.png");
+        }
+
+        #shell_script_thumbnail.full_image {
+            background-image: url("images/shell_script.png");
+        }
+
+    .large_font {
+        font-size: 350%;   
+    }
+
+#team {
+    background-position: center;
+    background-repeat: repeat;
+    width: 100%;
+    clear: both;
+    position: relative;
+    background-image: url("images/brickwall.png");
+}
+
+    #team .title_text.center {
+        top: 10%;
+    }
+
+
+#about_us {
+    position: absolute;
+    top: 20%;
+    height: 80%;
+    width: 100%;
+}
+
+    #about_us .col2 {
+        height: 100%;
+        width: 50%;
+        padding: 20px;
+        float: left;
+        position: relative;
+    }
+
+    #about_us .person {
+        height: 50%;
+        width: 60%;
+        position: relative;
+        text-align: center;
+    }
+
+        #about_us .left .person {
+            float: right;
+        }
+
+        #about_us .right .person {
+            float: left;
+        }
+
+        #about_us .person .headshot {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            height: 12vw;
+            width: 12vw;
+            border-radius: 50%;
+            left: 20%;
+        }
+
+            #about_us #tre.person .headshot {
+                background-image: url("images/tre.jpg");
+            }
+
+            #about_us #andrew.person .headshot {
+                background-image: url("images/andrew.jpg");
+            }
+
+            #about_us #vesha.person .headshot {
+                background-image: url("images/vesha.jpg");
+            }
+
+            #about_us #nicolas.person .headshot {
+                background-image: url("images/nicolas.jpg");
+            }
+
+        #about_us .person .social_media {
+            height: 12vw;
+            width: 4vw;
+            position: absolute;
+            left: 65%;
+        }
+
+            #about_us .person .social_media .icons {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                height: 6vw;
+            }
+
+            #about_us .person .social_media .linkedin {
+                background-image: url("images/linkedin.png");
+            }
+
+            #about_us .person .social_media .github {
+                background-image: url("images/github.png");
+            }
+
