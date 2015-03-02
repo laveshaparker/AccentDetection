@@ -1,7 +1,6 @@
 AccentDetection
 ===============
-
-Probabilistic Accent Detection Using Hidden Markov Models
+[Probabilistic Accent Detection Using Hidden Markov Models](http://laveshaparker.github.io/AccentDetection/)
 
 Tre Calhoun
 La Vesha Parker
